@@ -19,6 +19,10 @@ When(/^I fill the title with "(.*?)"$/) do |offer_title|
   fill_in('job_offer[title]', :with => offer_title)
 end
 
+When(/^I fill the expiration date with a future date$/) do
+  pending #@wip
+end
+
 When(/^confirm the new offer$/) do
   click_button('Create')
 end

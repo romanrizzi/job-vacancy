@@ -38,7 +38,7 @@ if ['development', 'test', 'travis'].include?(PADRINO_ENV)
   Cucumber::Rake::Task.new(:cucumber) do |task|
     Rake::Task['db:migrate'].invoke
     Rake::Task['db:seed'].invoke
-    task.cucumber_opts = ["features"]
+    task.cucumber_opts = ["features", "-t ~@wip"]
   end
 
   Cucumber::Rake::Task.new(:cucumber_report) do |task|
@@ -57,7 +57,7 @@ if ['development', 'test', 'travis'].include?(PADRINO_ENV)
     t.rspec_opts = %w(--format RspecJunitFormatter --out reports/spec/spec.xml)
   end
 
-=begin  
+=begin
   require 'rubocop/rake_task'
   desc 'Run RuboCop on the lib directory'
   Rubocop::RakeTask.new(:rubocop) do |task|
