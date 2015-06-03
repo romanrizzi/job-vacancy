@@ -56,4 +56,18 @@ describe JobOffer do
 		end
 	end
 
+	describe 'expired offers' do
+
+	  let(:expired_offer) do
+			job_offer = JobOffer.new
+			job_offer.expiration_date = Date.today - 2
+		  return job_offer
+		end
+
+		it 'The offer should be expired' do
+			expect(expired_offer.has_expired?).to eq false
+		end
+
+	end
+
 end
