@@ -61,11 +61,21 @@ describe JobOffer do
 	  let(:expired_offer) do
 			job_offer = JobOffer.new
 			job_offer.expiration_date = Date.today - 2
-		  return job_offer
+		  job_offer
+		end
+
+		let(:non_expired_offer) do
+			job_offer = JobOffer.new
+			job_offer.expiration_date = Date.today + 2
+		  job_offer
 		end
 
 		it 'The offer should be expired' do
-			expect(expired_offer.has_expired?).to eq false
+			expect(expired_offer.has_expired?).to eq true
+		end
+
+		it 'The offer should be expired' do
+			expect(non_expired_offer.has_expired?).to eq false
 		end
 
 	end

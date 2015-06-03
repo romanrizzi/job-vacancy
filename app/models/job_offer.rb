@@ -50,7 +50,7 @@ class JobOffer
 	end
 
 	def has_expired?
-		self.expiration_date == Date.today
+		self.expiration_date <  Date.today
 	end
 
 end
