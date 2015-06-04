@@ -1,6 +1,6 @@
 Job Vacancy Application
 =======================
-
+[![Build Status](https://travis-ci.org/romanrizzi/job-vacancy.png)](https://travis-ci.org/romanrizzi/job-vacancy)
 [![Build Status](https://snap-ci.com/nicopaez/job-vacancy/branch/develop/build_image)](https://snap-ci.com/nicopaez/job-vacancy/branch/develop)
 
 Once you have clone this repository, follow these steps to start working:
