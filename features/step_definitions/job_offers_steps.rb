@@ -36,9 +36,7 @@ end
 
 Given(/^I have "(.*?)" offer in My Offers$/) do |offer_title|
   JobOffer.all.destroy
-  visit '/job_offers/new'
-  fill_in('job_offer[title]', :with => offer_title)
-  click_button('Create')
+  create_offer_with_title(offer_title)
 end
 
 Given(/^I edit it$/) do
@@ -58,13 +56,11 @@ Given(/^I save the modification$/) do
 end
 
 Given(/^an offer with title "(.*?)"$/) do |offer_title|
-  visit '/job_offers/new'
-  fill_in('job_offer[title]', :with => offer_title)
-  click_button('Create')
+  create_offer_with_title(offer_title)
 end
 
-When(/^I create another one with title "(.*?)"$/) do |arg1|
-  pending # express the regexp above with the code you wish you had
+When(/^I create another one with title "(.*?)"$/) do |offer_title|
+  create_offer_with_title(offer_title)
 end
 
 Then(/^the last one title should end with "(.*?)"$/) do |arg1|
@@ -73,4 +69,10 @@ end
 
 Then(/^the first one should maintain it’s original title$/) do
   pending # express the regexp above with the code you wish you had
+end
+
+def create_offer_with_title(a_title)
+  visit '/job_offers/new'
+  fill_in('job_offer[title]', :with => a_title)
+  click_button('Create')
 end
