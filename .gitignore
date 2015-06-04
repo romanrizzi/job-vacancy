@@ -29,3 +29,4 @@ reports
 _yardoc
 doc/
 .env
+.idea

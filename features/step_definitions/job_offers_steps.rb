@@ -56,3 +56,21 @@ end
 Given(/^I save the modification$/) do
   click_button('Save')
 end
+
+Given(/^an offer with title "(.*?)"$/) do |offer_title|
+  visit '/job_offers/new'
+  fill_in('job_offer[title]', :with => offer_title)
+  click_button('Create')
+end
+
+When(/^I create another one with title "(.*?)"$/) do |arg1|
+  pending # express the regexp above with the code you wish you had
+end
+
+Then(/^the last one title should end with "(.*?)"$/) do |arg1|
+  pending # express the regexp above with the code you wish you had
+end
+
+Then(/^the first one should maintain it’s original title$/) do
+  pending # express the regexp above with the code you wish you had
+end
