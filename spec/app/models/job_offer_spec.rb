@@ -117,6 +117,16 @@ describe JobOffer do
         expect(offers.first.title).to eq java_dev_offer.title + '(1)'
         expect(offers[1].title).to eq casing_offer.title
       end
+
+      it 'should ignore spaces when looking for duplicated titles' do
+        another_other = User.create(name: 'Another User', password: '123abc', email: 'test2@user.com')
+        offer = JobOffer.create(title: 'JavaD evel  oper', user: another_other, created_on: Date.new(2015, 01, 01))
+
+        offers = JobOffer.all_active
+
+        expect(offers.first.title).to eq java_dev_offer.title + '(1)'
+        expect(offers[1].title).to eq offer.title
+      end
     end
   end
 

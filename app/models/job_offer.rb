@@ -22,30 +22,22 @@ class JobOffer
 	end
 
 	def self.all_active
-		job_offers = JobOffer.all(:is_active => true).sort {
-        |offer, other_offer| other_offer.created_on <=> offer.created_on
-    }
-    titles = Hash.new(-1)
-    job_offers.each { |offer|
-      title_to_store = offer.title.downcase
-      titles.store(title_to_store, titles[title_to_store] + 1)
-    }
-    job_offers.each { |offer|
-      offer_title = offer.title.downcase
-
-      unless titles[offer_title] == 0
-        offer.title += "(#{titles[offer_title]})"
-        titles.store(offer_title, titles[offer_title] - 1)
-      end
-    }
+    sort_offers_and_format_title_if_duplicated JobOffer.all(:is_active => true)
 	end
 
   def self.find_by_owner(user)
-    job_offers = JobOffer.all(:user => user).sort {
-      |offer, other_offer| other_offer.created_on <=> offer.created_on
-    }
+    sort_offers_and_format_title_if_duplicated JobOffer.all(:user => user)
+  end
 
-    format_duplicated_offer_titles(job_offers)
+  def self.deactivate_old_offers
+    active_offers = JobOffer.all(:is_active => true)
+
+    active_offers.each do | offer |
+      if (Date.today - offer.updated_on) >= 30
+        offer.deactivate
+        offer.save
+      end
+    end
   end
 
 	def activate
@@ -57,6 +49,14 @@ class JobOffer
 	end
 
   private
+
+  def self.sort_offers_and_format_title_if_duplicated job_offers
+    job_offers.sort {
+        |offer, other_offer| other_offer.created_on <=> offer.created_on
+    }
+
+    format_duplicated_offer_titles(job_offers)
+  end
 
   def self.format_duplicated_offer_titles(job_offers)
     titles = count_duplicated_titles_in(job_offers)
@@ -70,17 +70,6 @@ class JobOffer
         titles.store(searching_title, titles[searching_title] - 1)
       end
     }
-  end
-
-  def self.deactivate_old_offers
-    active_offers = JobOffer.all(:is_active => true)
-
-    active_offers.each do | offer |
-      if (Date.today - offer.updated_on) >= 30
-        offer.deactivate
-        offer.save
-      end
-    end
   end
 
   def self.count_duplicated_titles_in(job_offers)
