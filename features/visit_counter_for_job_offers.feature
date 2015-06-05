@@ -1,6 +1,9 @@
 @wip
 Feature: Counting the amount of visits in a job application
 
+  Background:
+    Given only a "Web Programmer" offer exists in the offers list
+
   Scenario:  Offer visited twice
     Given I visit an offer twice
     When I visit de offer page
