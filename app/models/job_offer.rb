@@ -25,10 +25,13 @@ class JobOffer
 		JobOffer.all(:is_active => true)
 	end
 
-	def self.find_by_owner(user)
-    job_offers = JobOffer.all(:user => user).sort { |offer, other_offer| other_offer.created_on <=> offer.created_on }
+  def self.find_by_owner(user)
+    job_offers = JobOffer.all(:user => user).sort {
+      |offer, other_offer| other_offer.created_on <=> offer.created_on
+    }
+
     format_duplicated_offer_titles(job_offers)
-	end
+  end
 
   def self.format_duplicated_offer_titles(job_offers)
     titles = count_duplicated_titles_in(job_offers)
@@ -38,7 +41,7 @@ class JobOffer
       searching_title = lowercase_and_remove_spaces_from(offer_title)
 
       unless titles[searching_title] == 0
-        offer.title = offer_title + "(#{titles[searching_title]})"
+        offer.title += "(#{titles[searching_title]})"
         titles.store(searching_title, titles[searching_title] - 1)
       end
     }
