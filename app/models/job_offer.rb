@@ -27,11 +27,11 @@ class JobOffer
     }
     titles = Hash.new(-1)
     job_offers.each { |offer|
-      title_to_store = offer.title
+      title_to_store = offer.title.downcase
       titles.store(title_to_store, titles[title_to_store] + 1)
     }
     job_offers.each { |offer|
-      offer_title = offer.title
+      offer_title = offer.title.downcase
 
       unless titles[offer_title] == 0
         offer.title += "(#{titles[offer_title]})"
