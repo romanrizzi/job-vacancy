@@ -60,11 +60,13 @@ Given(/^an offer with title "(.*?)"$/) do |offer_title|
 end
 
 When(/^I create another one with title "(.*?)"$/) do |offer_title|
+  @offer_title = offer_title
   create_offer_with_title(offer_title)
 end
 
-Then(/^the last one title should end with "(.*?)"$/) do |arg1|
-  pending # express the regexp above with the code you wish you had
+Then(/^the last one title should end with "(.*?)"$/) do |offer_index|
+  visit '/job_offers/my'
+  page.should have_content(@offer_title + offer_index)
 end
 
 Then(/^the first one should maintain it’s original title$/) do

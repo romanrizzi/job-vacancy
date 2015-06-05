@@ -26,10 +26,24 @@ class JobOffer
 	end
 
 	def self.find_by_owner(user)
-		JobOffer.all(:user => user)
+    job_offers = JobOffer.all(:user => user).sort {|offer, other_offer| other_offer.created_on <=> offer.created_on }
+    format_duplicated_offer_titles(job_offers)
 	end
 
-	def self.deactivate_old_offers
+  def self.format_duplicated_offer_titles(job_offers)
+    titles = Hash.new(-1)
+    job_offers.each { |offer| titles.store(offer.title, titles[offer.title] + 1) }
+
+    job_offers.each { |offer|
+      unless titles[offer.title] == 0
+        offer_title = offer.title
+        offer.title = offer_title + "(#{titles[offer_title]})"
+        titles.store(offer_title, titles[offer_title] - 1)
+      end
+    }
+  end
+
+  def self.deactivate_old_offers
 		active_offers = JobOffer.all(:is_active => true)
 
 		active_offers.each do | offer |

@@ -54,6 +54,26 @@ describe JobOffer do
 			JobOffer.deactivate_old_offers
 			expect(today_offer.is_active).to eq true
 		end
-	end
+  end
+
+  describe 'offers with same title' do
+
+    let(:user) { User.create(name: 'Test User', password: '123abc', email: 'test@user.com') }
+
+    context 'two offers same title' do
+
+      it 'should add a (1) to the latest created offer title' do
+        offer = JobOffer.create(title: 'Java Developer', user: user, created_on: Date.new(2015, 01, 01))
+        other_offer = JobOffer.create(title: 'Java Developer', user: user)
+
+        offers = JobOffer.find_by_owner user
+
+        expect(offers.first.title).to eq offer.title + '(1)'
+        expect(offers[1].title).to eq other_offer.title
+        expect(offers.first.created_on >= offers[1].created_on).to be_truthy
+      end
+
+    end
+  end
 
 end
