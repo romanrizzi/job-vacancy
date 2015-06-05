@@ -31,14 +31,14 @@ class JobOffer
 	end
 
   def self.format_duplicated_offer_titles(job_offers)
-    titles = Hash.new(-1)
-    job_offers.each { |offer| titles.store(offer.title, titles[offer.title] + 1) }
+    titles = count_duplicated_titles_in(job_offers)
 
     job_offers.each { |offer|
-      unless titles[offer.title] == 0
+      downcase_title = offer.title.downcase
+      unless titles[downcase_title] == 0
         offer_title = offer.title
-        offer.title = offer_title + "(#{titles[offer_title]})"
-        titles.store(offer_title, titles[offer_title] - 1)
+        offer.title = offer_title + "(#{titles[downcase_title]})"
+        titles.store(downcase_title, titles[downcase_title] - 1)
       end
     }
   end
@@ -62,4 +62,14 @@ class JobOffer
 		self.is_active = false
 	end
 
+  private
+
+  def self.count_duplicated_titles_in(job_offers)
+    titles = Hash.new(-1)
+    job_offers.each { |offer|
+      downcase_title = offer.title.downcase
+      titles.store(downcase_title, titles[downcase_title] + 1)
+    }
+    titles
+  end
 end
