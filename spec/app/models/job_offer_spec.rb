@@ -59,25 +59,37 @@ describe JobOffer do
   describe 'offers with same title' do
 
     let(:user) { User.create(name: 'Test User', password: '123abc', email: 'test@user.com') }
+    let(:java_dev_offer) { JobOffer.create(title: 'Java Developer', user: user) }
+
+    before :each do
+      java_dev_offer
+    end
 
     it 'should add a (1) to the latest created offer title' do
       offer = JobOffer.create(title: 'Java Developer', user: user, created_on: Date.new(2015, 01, 01))
-      other_offer = JobOffer.create(title: 'Java Developer', user: user)
 
       offers = JobOffer.find_by_owner user
 
       expect(offers.first.title).to eq offer.title + '(1)'
-      expect(offers[1].title).to eq other_offer.title
+      expect(offers[1].title).to eq java_dev_offer.title
       expect(offers.first.created_on >= offers[1].created_on).to be_truthy
     end
 
     it 'should ignore casing when looking for duplicated titles' do
       offer = JobOffer.create(title: 'jAvA deveLoper', user: user, created_on: Date.new(2015, 01, 01))
-      other_offer = JobOffer.create(title: 'Java Developer', user: user)
 
       offers = JobOffer.find_by_owner user
 
-      expect(offers.first.title).to eq other_offer.title + '(1)'
+      expect(offers.first.title).to eq java_dev_offer.title + '(1)'
+      expect(offers[1].title).to eq offer.title
+    end
+
+    it 'should ignore spaces when looking for duplicated titles' do
+      offer = JobOffer.create(title: 'JavaDevel  oper', user: user, created_on: Date.new(2015, 01, 01))
+
+      offers = JobOffer.find_by_owner user
+
+      expect(offers.first.title).to eq java_dev_offer.title + '(1)'
       expect(offers[1].title).to eq offer.title
     end
   end

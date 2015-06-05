@@ -26,7 +26,7 @@ class JobOffer
 	end
 
 	def self.find_by_owner(user)
-    job_offers = JobOffer.all(:user => user).sort {|offer, other_offer| other_offer.created_on <=> offer.created_on }
+    job_offers = JobOffer.all(:user => user).sort { |offer, other_offer| other_offer.created_on <=> offer.created_on }
     format_duplicated_offer_titles(job_offers)
 	end
 
@@ -34,11 +34,12 @@ class JobOffer
     titles = count_duplicated_titles_in(job_offers)
 
     job_offers.each { |offer|
-      downcase_title = offer.title.downcase
-      unless titles[downcase_title] == 0
-        offer_title = offer.title
-        offer.title = offer_title + "(#{titles[downcase_title]})"
-        titles.store(downcase_title, titles[downcase_title] - 1)
+      offer_title = offer.title
+      searching_title = lowercase_and_remove_spaces_from(offer_title)
+
+      unless titles[searching_title] == 0
+        offer.title = offer_title + "(#{titles[searching_title]})"
+        titles.store(searching_title, titles[searching_title] - 1)
       end
     }
   end
@@ -67,9 +68,13 @@ class JobOffer
   def self.count_duplicated_titles_in(job_offers)
     titles = Hash.new(-1)
     job_offers.each { |offer|
-      downcase_title = offer.title.downcase
-      titles.store(downcase_title, titles[downcase_title] + 1)
+      title_to_store = lowercase_and_remove_spaces_from(offer.title)
+      titles.store(title_to_store, titles[title_to_store] + 1)
     }
     titles
+  end
+
+  def self.lowercase_and_remove_spaces_from(offer_title)
+    offer_title.downcase.delete ' '
   end
 end
