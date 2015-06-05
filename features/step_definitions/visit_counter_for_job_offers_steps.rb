@@ -3,11 +3,12 @@ Given(/^I visit an offer twice$/) do
   click_link 'Apply'
   fill_in('job_application[applicant_email]', :with => 'applicant1@test.com')
   click_button('Apply')
+  click_link 'Apply'
   fill_in('job_application[applicant_email]', :with => 'applicant2@test.com')
   click_button('Apply')
 end
 
-When(/^I visit de offer page$/) do
+When(/^I visit the offer page$/) do
   visit '/login'
   fill_in('user[email]', :with => 'offerer@test.com')
   fill_in('user[password]', :with => 'Passw0rd!')
@@ -16,5 +17,5 @@ When(/^I visit de offer page$/) do
 end
 
 Then(/^I should see that the offer's been visited (\d+) times$/) do |number_of_visits|
-  pending # express the regexp above with the code you wish you had
+  page.should have_content(number_of_visits) #needs to be more precise, to eq the specific field
 end
