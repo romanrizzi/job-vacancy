@@ -15,6 +15,7 @@ describe JobOffer do
 		it { should respond_to( :created_on) }
 		it { should respond_to( :updated_on ) }
 		it { should respond_to( :is_active) }
+    it { should respond_to( :visit_counter) }
 
 	end
 
@@ -55,5 +56,4 @@ describe JobOffer do
 			expect(today_offer.is_active).to eq true
 		end
 	end
-
 end

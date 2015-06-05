@@ -47,6 +47,10 @@ class JobOffer
 
 	def deactivate
 		self.is_active = false
-	end
+  end
+
+  def new_visitor
+    self.visit_counter +=1
+  end
 
 end
