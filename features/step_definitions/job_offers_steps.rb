@@ -56,6 +56,7 @@ Given(/^I save the modification$/) do
 end
 
 Given(/^an offer with title "(.*?)"$/) do |offer_title|
+  @first_offer_title = offer_title
   create_offer_with_title(offer_title)
 end
 
@@ -65,16 +66,22 @@ When(/^I create another one with title "(.*?)"$/) do |offer_title|
 end
 
 Then(/^the last one title should end with "(.*?)"$/) do |offer_index|
-  visit '/job_offers/my'
-  page.should have_content(@offer_title + offer_index)
+  assert_there_is_offer_title_in_row_number @offer_title + offer_index, 2
 end
 
 Then(/^the first one should maintain it’s original title$/) do
-  pending # express the regexp above with the code you wish you had
+  assert_there_is_offer_title_in_row_number @first_offer_title, 3
 end
 
 def create_offer_with_title(a_title)
   visit '/job_offers/new'
   fill_in('job_offer[title]', :with => a_title)
   click_button('Create')
+end
+
+def assert_there_is_offer_title_in_row_number a_title, a_row_number
+  visit '/job_offers/my'
+  within("table tr:nth-child(#{a_row_number})") do
+    expect(find("td:nth-child(1)").text).to eq a_title
+  end
 end

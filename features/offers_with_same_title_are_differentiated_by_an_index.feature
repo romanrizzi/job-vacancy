@@ -6,7 +6,6 @@ Feature: Offers with the same title are differentiated by an index
   Background:
     Given I am logged in as job offerer
 
-  @wip
   Scenario: Two offers with the same title
     Given an offer with title "java developer"
     When I create another one with title "java developer"
