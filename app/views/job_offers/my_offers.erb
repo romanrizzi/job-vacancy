@@ -5,6 +5,7 @@
 		<th>Location</th>
 		<th>Description</th>
 		<th>Is active</th>
+        <th>Visits</th>
 		<th>Actions</th>
 	</tr>
 	<% @offers.each do | offer| %>
@@ -18,10 +19,13 @@
 		</td>
 		<td>
 			<%= offer.description %>
-		</td>		
+		</td>
 		<td>
 			<%= offer.is_active %>
-		</td>		
+		</td>
+        <td>
+            <%= offer.visit_counter %>
+        </td>
 
 		<td>
 			<%= link_to 'Edit', url_for(:job_offers, :edit, :offer_id => offer.id), :class => "btn btn-primary" %>

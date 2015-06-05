@@ -9,6 +9,7 @@ class JobOffer
   property :created_on, Date
   property :updated_on, Date
   property :is_active, Boolean, :default => true
+  property :visit_counter, Integer
 	belongs_to :user
 
 	validates_presence_of :title
