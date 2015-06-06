@@ -51,9 +51,7 @@ class JobOffer
   private
 
   def self.sort_offers_and_format_title_if_duplicated job_offers
-    job_offers.sort {
-        |offer, other_offer| other_offer.created_on <=> offer.created_on
-    }
+    job_offers = job_offers.sort_by(&:created_on).reverse
 
     format_duplicated_offer_titles(job_offers)
   end
