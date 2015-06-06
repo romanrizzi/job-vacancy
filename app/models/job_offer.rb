@@ -23,7 +23,7 @@ class JobOffer
 	end
 
 	def self.all_active
-		JobOffer.all(:is_active => true)
+		JobOffer.all(:is_active => true, :expiration_date.gte => (Date.today - 1))
 	end
 
 	def self.find_by_owner(user)

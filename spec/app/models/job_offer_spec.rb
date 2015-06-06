@@ -15,6 +15,8 @@ describe JobOffer do
 		it { should respond_to( :created_on) }
 		it { should respond_to( :updated_on ) }
 		it { should respond_to( :is_active) }
+		it { should respond_to( :has_expired?) }
+
 
 	end
 
@@ -58,16 +60,22 @@ describe JobOffer do
 
 	describe 'expired offers' do
 
+		before(:each) do
+			JobOffer.all.destroy
+		end
+
+		let(:user) do
+			User.create(name: 'Test User', password: '123abc', email: 'test@user.com')
+		end
+
 	  let(:expired_offer) do
-			job_offer = JobOffer.new
-			job_offer.expiration_date = Date.today - 2
-		  job_offer
+			JobOffer.create(title: 'Java Developer', user: user,
+			 expiration_date: Date.today - 2)
 		end
 
 		let(:non_expired_offer) do
-			job_offer = JobOffer.new
-			job_offer.expiration_date = Date.today + 2
-		  job_offer
+			JobOffer.create(title: 'Arquitecto Ruby', user: user,
+			 expiration_date: Date.today + 2)
 		end
 
 		it 'The offer should be expired' do
@@ -76,6 +84,13 @@ describe JobOffer do
 
 		it 'The offer should be expired' do
 			expect(non_expired_offer.has_expired?).to eq false
+		end
+
+		it 'Should retrieve from database the non expired offer' do
+			expired_offer.save
+			non_expired_offer.save
+
+			expect(JobOffer.all_active).to contain_exactly(non_expired_offer)
 		end
 
 	end
