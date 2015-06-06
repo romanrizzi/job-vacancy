@@ -8,7 +8,6 @@ Feature: Job Offers CRUD
   Background:
   	Given I am logged in as job offerer
 
-  @wip
   Scenario: Create new offer
     Given I access the new offer page
     When I fill the title with "Programmer vacancy"
