@@ -17,6 +17,8 @@ class JobOffer
 		:if => lambda { |t| t.expiration_date < Date.today },
 		:message => 'Date is already expired'
 
+	self.raise_on_save_failure = true
+
 	def owner
 		user
 	end

@@ -16,17 +16,17 @@ describe JobOffer do
 		it { should respond_to( :updated_on ) }
 		it { should respond_to( :is_active) }
 	end
+	
+	let(:user) do
+		User.create(name: 'Test User', password: '123abc', email: 'test@user.com')
+	end
 
 	describe 'valid?' do
-
-		let(:user) do
-			User.create(name: 'Test User', password: '123abc', email: 'test@user.com')
-		end
 
 	  let(:job_offer) { JobOffer.new }
 
 		let(:expired_job_offer) {
-			JobOffer.create(title: 'A title', user: user,
+			JobOffer.new(title: 'A title', user: user,
 			expiration_date: Date.today-2 )
 		}
 
@@ -38,15 +38,13 @@ describe JobOffer do
 		context 'When saving to the database' do
 
 			it 'Should fail with message: Title is mandatory if title is blank' do
-				job_offer.save
+				expect { job_offer.save }.to raise_error(DataMapper::SaveFailureError)
 				expect(job_offer.errors.first).to contain_exactly('Title is mandatory')
-				expect(job_offer.saved?).to be_falsey
 			end
 
 			it 'Should fail with message: Date is already expired when Date is in the past' do
-				expired_job_offer.save
+				expect { expired_job_offer.save }.to raise_error(DataMapper::SaveFailureError)
 				expect(expired_job_offer.errors.first).to contain_exactly('Date is already expired')
-				expect(expired_job_offer.saved?).to be_falsey
 			end
 		end
 	end
@@ -54,15 +52,11 @@ describe JobOffer do
 	describe 'deactive_old_offers' do
 
 		let(:today_offer) do
-			today_offer = JobOffer.new
-			today_offer.updated_on = Date.today
-			today_offer
+			JobOffer.new(title: 'A title', updated_on: Date.today, user: user)
 		end
 
 		let(:thirty_day_offer) do
-			thirty_day_offer = JobOffer.new
-			thirty_day_offer.updated_on = Date.today - 45
-			thirty_day_offer
+			JobOffer.new(title: 'A title', updated_on: Date.today-45, user: user)
 		end
 
 		it 'should deactivate offers updated 45 days ago' do
@@ -89,26 +83,23 @@ describe JobOffer do
 
 	describe 'expired offers' do
 
-
-		let(:user) do
-			User.create(name: 'Test User', password: '123abc', email: 'test@user.com')
-		end
-
 	  let(:expired_offer) do
 			JobOffer.create(title: 'Java Developer', user: user,
-			 expiration_date: Date.today - 2)
+			 expiration_date: Date.today + 5)
 		end
 
 		let(:non_expired_offer) do
 			JobOffer.create(title: 'Arquitecto Ruby', user: user,
-			 expiration_date: Date.today + 2)
+			 expiration_date: Date.today + 10)
 		end
 
 		it 'Should retrieve from database the non expired offer' do
 			expired_offer.save
 			non_expired_offer.save
 
-			expect(JobOffer.all_active).to contain_exactly(non_expired_offer)
+			Timecop.freeze(Date.today + 7) do
+				expect(JobOffer.all_active).to contain_exactly(non_expired_offer)
+			end
 		end
 
 	end

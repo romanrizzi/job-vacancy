@@ -53,13 +53,18 @@ JobVacancy::App.controllers :job_offers do
     @job_offer.owner = current_user
     if !date_format_valid?
       flash.now[:error] = 'Validate date format'
-      render 'job_offers/new'
-    elsif @job_offer.save
+      return render 'job_offers/new'
+    end
+    begin
+      @job_offer.save
       TwitterClient.publish(@job_offer) if params['create_and_twit']
       flash[:success] = 'Offer created'
       redirect '/job_offers/my'
-    else
-      flash.now[:error] = 'Title is mandatory'
+
+    rescue DataMapper::SaveFailureError
+      flash.now[:error] = []
+      @job_offer.errors.each { |error| flash.now[:error] << error.first }
+      flash.now[:error] = flash.now[:error].join(', ')
       render 'job_offers/new'
     end
   end
