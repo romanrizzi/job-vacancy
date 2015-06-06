@@ -20,7 +20,7 @@ Given(/^a expired offer$/) do
 end
 
 Then(/^The non expired one should be the only visible in this page$/) do
-  visit '/job_offers/my'
+  visit '/job_offers/latest'
   page.should have_content("Programador Rails")
   page.should_not have_content("Arquitecto Java")
 end

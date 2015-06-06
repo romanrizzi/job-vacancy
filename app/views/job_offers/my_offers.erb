@@ -18,10 +18,13 @@
 		</td>
 		<td>
 			<%= offer.description %>
-		</td>		
+		</td>
 		<td>
 			<%= offer.is_active %>
-		</td>		
+		</td>
+		<td>
+			<%= offer.expiration_date %>
+		</td>
 
 		<td>
 			<%= link_to 'Edit', url_for(:job_offers, :edit, :offer_id => offer.id), :class => "btn btn-primary" %>
@@ -35,7 +38,7 @@
 	                </button>
 	       <% end %>
        <% end %>
-		</td>	
+		</td>
 	</tr>
 
   <% end %>
