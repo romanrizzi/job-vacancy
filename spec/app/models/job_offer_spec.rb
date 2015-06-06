@@ -58,6 +58,15 @@ describe JobOffer do
 		end
 	end
 
+	describe 'default expiration date' do
+
+		it 'Should have a default expiration day of 30 days' do
+			job_offer = JobOffer.new
+
+			expect(job_offer.expiration_date).to eq(Date.today + 30)
+		end
+	end
+
 	describe 'expired offers' do
 
 		before(:each) do
