@@ -20,6 +20,18 @@ Then(/^I should see that the offer's been visited (\d+) times$/) do |number_of_v
   assert_there_is_a_number_of_visits_in_the_correct_row number_of_visits.to_i, 5
 end
 
+Given(/^I create a new offer$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+When(/^I visit the offers page$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+Then(/^I should see that the offer has zero visits$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
 def assert_there_is_a_number_of_visits_in_the_correct_row number_of_visits, a_column_number
   visit '/job_offers/my'
   within("table tr:nth-child(2)") do
