@@ -13,6 +13,10 @@ class JobOffer
 
 	validates_presence_of :title
 
+  before :save do
+    JobOffer.all(:id.not => self.id).count { |offer| offer.title == self.title }
+  end
+
 	def owner
 		user
 	end
@@ -22,11 +26,11 @@ class JobOffer
 	end
 
   def self.all_active
-    sort_offers_and_format_title_if_duplicated JobOffer.all(:is_active => true)
+    JobOffer.all(:is_active => true)
   end
 
   def self.find_by_owner(user)
-    sort_offers_and_format_title_if_duplicated JobOffer.all(:user => user)
+    JobOffer.all(:user => user)
   end
 
   def self.deactivate_old_offers
@@ -48,38 +52,4 @@ class JobOffer
 		self.is_active = false
 	end
 
-  private
-
-  def self.sort_offers_and_format_title_if_duplicated job_offers
-    job_offers = job_offers.sort_by(&:created_on).reverse
-
-    format_duplicated_offer_titles(job_offers)
-  end
-
-  def self.format_duplicated_offer_titles(job_offers)
-    titles = count_duplicated_titles_in(job_offers)
-
-    job_offers.each { |offer|
-      offer_title = offer.title
-      searching_title = lowercase_and_remove_spaces_from(offer_title)
-
-      unless titles[searching_title] == 0
-        offer.title += "(#{titles[searching_title]})"
-        titles.store(searching_title, titles[searching_title] - 1)
-      end
-    }
-  end
-
-  def self.count_duplicated_titles_in(job_offers)
-    titles = Hash.new(-1)
-    job_offers.each { |offer|
-      title_to_store = lowercase_and_remove_spaces_from(offer.title)
-      titles.store(title_to_store, titles[title_to_store] + 1)
-    }
-    titles
-  end
-
-  def self.lowercase_and_remove_spaces_from(offer_title)
-    offer_title.downcase.delete ' '
-  end
 end
