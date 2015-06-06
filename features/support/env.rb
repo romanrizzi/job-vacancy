@@ -2,6 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + "/../../config/boot")
 
 require 'capybara/cucumber'
 require 'rspec/expectations'
+require 'timecop'
 
 #require 'simplecov'
 require 'simplecov'
@@ -21,7 +22,7 @@ end
 
 DataMapper.auto_migrate!
 user = User.create(:email => 'offerer@test.com',
-									 :name => 'Offerer', 
+									 :name => 'Offerer',
 									 :password => "Passw0rd!") unless User.all.count > 0
 
 #Capybara.default_driver = :selenium
