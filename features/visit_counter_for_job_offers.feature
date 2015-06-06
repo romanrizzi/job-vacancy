@@ -1,4 +1,3 @@
-@wip
 Feature: Counting the amount of visits in a job application
 
   Background:

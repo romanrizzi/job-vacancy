@@ -17,5 +17,13 @@ When(/^I visit the offer page$/) do
 end
 
 Then(/^I should see that the offer's been visited (\d+) times$/) do |number_of_visits|
-  page.should have_content(number_of_visits) #needs to be more precise, to eq the specific field
+  assert_there_is_a_number_of_visits_in_the_correct_row number_of_visits.to_i, 5
 end
+
+def assert_there_is_a_number_of_visits_in_the_correct_row number_of_visits, a_column_number
+  visit '/job_offers/my'
+  within("table tr:nth-child(2)") do
+  expect(find("td:nth-child(#{a_column_number})").text.to_i).to eq number_of_visits
+  end
+end
+
