@@ -4,8 +4,10 @@ Given(/^an expired offer$/) do
 end
 
 Then(/^this offer should not appear in this page$/) do
-  visit '/job_offers/latest'
-  page.should_not have_content("Arquitecto Java")
+  Timecop.freeze(Date.today + 12) do
+    visit '/job_offers/latest'
+    page.should_not have_content("Arquitecto Java")
+  end
 end
 
 Given(/^a non expired offer$/) do
@@ -20,8 +22,8 @@ Given(/^a expired offer$/) do
 end
 
 Then(/^The non expired one should be the only visible in this page$/) do
-  visit '/job_offers/latest'
-  Timecop.freeze(Date.today + 10) do
+  Timecop.freeze(Date.today + 12) do
+    visit '/job_offers/latest'
     page.should have_content("Programador Rails")
     page.should_not have_content("Arquitecto Java")
   end
