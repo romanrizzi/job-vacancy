@@ -54,4 +54,8 @@ class JobOffer
     save
   end
 
+  def get_amount_of_visits
+    self.visit_counter.to_i
+  end
+
 end

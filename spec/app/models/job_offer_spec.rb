@@ -55,5 +55,19 @@ describe JobOffer do
 			JobOffer.deactivate_old_offers
 			expect(today_offer.is_active).to eq true
 		end
-	end
+  end
+  describe 'visit_counter' do
+
+    let(:job_offer) { JobOffer.new }
+
+    it 'should be zero when a job offer is created' do
+      expect(job_offer.get_amount_of_visits).to eq 0
+    end
+
+    it 'should be increase when a job offer is visited' do
+      job_offer.new_visitor
+      expect(job_offer.get_amount_of_visits).to eq 1
+    end
+
+  end
 end
