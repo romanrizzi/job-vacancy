@@ -74,7 +74,7 @@ describe JobOffer do
 
       offers = JobOffer.find_by_owner user
 
-      expect(offers.first.title).to eq 'Java Developer'
+      expect(offers.first.title).to eq java_dev_offer.title
       expect(offers[1].title).to eq 'Java Developer(1)'
       expect(offers[2].title).to eq 'Java Developer(2)'
     end
@@ -84,8 +84,17 @@ describe JobOffer do
 
       offers = JobOffer.all
 
-      expect(offers.first.title).to eq 'Java Developer'
+      expect(offers.first.title).to eq java_dev_offer.title
       expect(offers[1].title).to eq 'jAvA deVELopeR(1)'
+    end
+
+    it 'should ignore spaces when looking for duplicated titles' do
+      JobOffer.create(title: 'JavaDevel  oper', user: user, created_on: Date.new(2015, 01, 01))
+
+      offers = JobOffer.find_by_owner user
+
+      expect(offers.first.title).to eq java_dev_offer.title
+      expect(offers[1].title).to eq 'JavaDevel  oper(1)'
     end
   end
 
