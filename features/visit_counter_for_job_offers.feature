@@ -8,8 +8,8 @@ Feature: Counting the amount of visits in a job application
     When I visit the offer page
     Then I should see that the offer's been visited 2 times
 
-  @wip
+  #@wip
   Scenario: New offer has no visits
     Given I create a new offer
-    When I visit the offers page
-    Then I should see that the offer has zero visits
+    When I visit the offer page
+    Then I should see that the offer has 0 visits
