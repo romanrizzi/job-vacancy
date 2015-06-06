@@ -11,20 +11,20 @@
 	<% @offers.each do | offer| %>
 
 	<tr>
-			<td>
-			<%= offer.title %>
+		<td>
+		  <%= offer.title %>
 		</td>
 		<td>
-			<%= offer.location %>
+		  <%= offer.location %>
 		</td>
 		<td>
-			<%= offer.description %>
+		  <%= offer.description %>
 		</td>
 		<td>
-			<%= offer.is_active %>
+		  <%= offer.is_active %>
 		</td>
         <td>
-            <%= offer.visit_counter %>
+          <%= offer.visit_counter.to_i %>
         </td>
 
 		<td>
