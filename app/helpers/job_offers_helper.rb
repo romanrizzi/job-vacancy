@@ -5,4 +5,8 @@ JobVacancy::App.helpers do
   #  ...
   # end
 
+  def date_format_valid?
+    y, m, d = params[:job_offer][:expiration_date].split('-')
+    Date.valid_date? y.to_i, m.to_i, d.to_i
+  end
 end

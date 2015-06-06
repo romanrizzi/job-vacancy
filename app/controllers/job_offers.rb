@@ -51,11 +51,10 @@ JobVacancy::App.controllers :job_offers do
   post :create do
     @job_offer = JobOffer.new(params[:job_offer])
     @job_offer.owner = current_user
-    if @job_offer.expiration_date >= Date.today
-      flash.now[:error] = 'Cannot add offers with a expired Date'
+    if !date_format_valid?
+      flash.now[:error] = 'Validate date format'
       render 'job_offers/new'
-    end
-    if @job_offer.save
+    elsif @job_offer.save
       TwitterClient.publish(@job_offer) if params['create_and_twit']
       flash[:success] = 'Offer created'
       redirect '/job_offers/my'
