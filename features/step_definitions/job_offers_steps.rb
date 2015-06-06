@@ -66,11 +66,11 @@ When(/^I create another one with title "(.*?)"$/) do |offer_title|
 end
 
 Then(/^the last one title should end with "(.*?)"$/) do |offer_index|
-  assert_there_is_offer_title_in_row_number @offer_title + offer_index, 2
+  assert_there_is_offer_title_in_row_number @offer_title + offer_index, 3
 end
 
 Then(/^the first one should maintain it’s original title$/) do
-  assert_there_is_offer_title_in_row_number @first_offer_title, 3
+  assert_there_is_offer_title_in_row_number @first_offer_title, 2
 end
 
 def create_offer_with_title(a_title)

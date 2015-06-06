@@ -14,7 +14,8 @@ class JobOffer
 	validates_presence_of :title
 
   before :save do
-    JobOffer.all(:id.not => self.id).count { |offer| offer.title == self.title }
+    title_occurrences = JobOffer.all.count { |offer| offer.title == self.title }
+    self.title += "(#{title_occurrences.to_s})" unless title_occurrences == 0
   end
 
 	def owner

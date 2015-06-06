@@ -70,22 +70,13 @@ describe JobOffer do
 
     it 'should add a (2) to the latest created offer title, (1) to the next one and so on' do
       offer_with_exact_same_tile
-      last_offer = JobOffer.create(title: 'Java Developer', user: user, created_on: java_dev_offer.created_on + 3)
+      JobOffer.create(title: 'Java Developer', user: user, created_on: java_dev_offer.created_on + 3)
 
       offers = JobOffer.find_by_owner user
 
-      expect(offers.first.title).to eq offer_with_exact_same_tile.title + '(2)'
-      expect(offers[1].title).to eq offer_with_exact_same_tile.title + '(1)'
-      expect(offers[2].title).to eq java_dev_offer.title
-      assert_offers_are_ordered_by_created_on_column(last_offer, offers)
-    end
-
-    def assert_offers_are_ordered_by_created_on_column(last_offer, offers)
-      expect(offers.first.id).to eq last_offer.id
-      expect(offers[1].id).to eq java_dev_offer.id
-      expect(offers[2].id).to eq offer_with_exact_same_tile.id
-      expect(offers.first.created_on >= offers[1].created_on).to be_truthy
-      expect(offers[1].created_on >= offers[2].created_on).to be_truthy
+      expect(offers.first.title).to eq 'Java Developer'
+      expect(offers[1].title).to eq 'Java Developer(1)'
+      expect(offers[2].title).to eq 'Java Developer(2)'
     end
   end
 
