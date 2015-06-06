@@ -51,7 +51,7 @@ JobVacancy::App.controllers :job_offers do
   post :create do
     @job_offer = JobOffer.new(params[:job_offer])
     @job_offer.owner = current_user
-    if @job_offer.has_expired?
+    if @job_offer.expiration_date >= Date.today
       flash.now[:error] = 'Cannot add offers with a expired Date'
       render 'job_offers/new'
     end

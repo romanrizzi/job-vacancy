@@ -13,6 +13,9 @@ class JobOffer
 	belongs_to :user
 
 	validates_presence_of :title, :message => 'Title is mandatory'
+	validates_acceptance_of :expiration_date,
+		:if => lambda { |t| t.expiration_date < Date.today },
+		:message => 'Date is already expired'
 
 	def owner
 		user
@@ -47,10 +50,6 @@ class JobOffer
 
 	def deactivate
 		self.is_active = false
-	end
-
-	def has_expired?
-		self.expiration_date <  Date.today
 	end
 
 end

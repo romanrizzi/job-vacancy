@@ -15,14 +15,20 @@ describe JobOffer do
 		it { should respond_to( :created_on) }
 		it { should respond_to( :updated_on ) }
 		it { should respond_to( :is_active) }
-		it { should respond_to( :has_expired?) }
-
-
 	end
 
 	describe 'valid?' do
 
+		let(:user) do
+			User.create(name: 'Test User', password: '123abc', email: 'test@user.com')
+		end
+
 	  let(:job_offer) { JobOffer.new }
+
+		let(:expired_job_offer) {
+			JobOffer.create(title: 'A title', user: user,
+			expiration_date: Date.today-2 )
+		}
 
 	  it 'should be false when title is blank' do
 	  	puts job_offer.owner
@@ -37,6 +43,11 @@ describe JobOffer do
 				expect(job_offer.saved?).to be_falsey
 			end
 
+			it 'Should fail with message: Date is already expired when Date is in the past' do
+				expired_job_offer.save
+				expect(expired_job_offer.errors.first).to contain_exactly('Date is already expired')
+				expect(expired_job_offer.saved?).to be_falsey
+			end
 		end
 	end
 
@@ -78,9 +89,6 @@ describe JobOffer do
 
 	describe 'expired offers' do
 
-		before(:each) do
-			JobOffer.all.destroy
-		end
 
 		let(:user) do
 			User.create(name: 'Test User', password: '123abc', email: 'test@user.com')
@@ -94,14 +102,6 @@ describe JobOffer do
 		let(:non_expired_offer) do
 			JobOffer.create(title: 'Arquitecto Ruby', user: user,
 			 expiration_date: Date.today + 2)
-		end
-
-		it 'The offer should be expired' do
-			expect(expired_offer.has_expired?).to eq true
-		end
-
-		it 'The offer should be expired' do
-			expect(non_expired_offer.has_expired?).to eq false
 		end
 
 		it 'Should retrieve from database the non expired offer' do
