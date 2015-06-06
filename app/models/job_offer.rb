@@ -21,9 +21,9 @@ class JobOffer
 		self.user = a_user
 	end
 
-	def self.all_active
+  def self.all_active
     sort_offers_and_format_title_if_duplicated JobOffer.all(:is_active => true)
-	end
+  end
 
   def self.find_by_owner(user)
     sort_offers_and_format_title_if_duplicated JobOffer.all(:user => user)
