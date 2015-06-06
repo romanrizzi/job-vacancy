@@ -12,7 +12,7 @@ class JobOffer
 	property :expiration_date, Date, :default => (Date.today + 30)
 	belongs_to :user
 
-	validates_presence_of :title
+	validates_presence_of :title, :message => 'Title is mandatory'
 
 	def owner
 		user

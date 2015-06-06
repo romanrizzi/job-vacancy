@@ -26,4 +26,4 @@ user = User.create(:email => 'offerer@test.com',
 									 :password => "Passw0rd!") unless User.all.count > 0
 
 #Capybara.default_driver = :selenium
-Capybara.app = JobVacancy::App.tap { |app|  }
+Capybara.app = JobVacancy::App.tap { |app| }

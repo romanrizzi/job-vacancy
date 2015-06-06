@@ -29,6 +29,15 @@ describe JobOffer do
 	  	expect(job_offer.valid?).to eq false
 	  end
 
+		context 'When saving to the database' do
+
+			it 'Should fail with message: Title is mandatory if title is blank' do
+				job_offer.save
+				expect(job_offer.errors.first).to contain_exactly('Title is mandatory')
+				expect(job_offer.saved?).to be_falsey
+			end
+
+		end
 	end
 
 	describe 'deactive_old_offers' do

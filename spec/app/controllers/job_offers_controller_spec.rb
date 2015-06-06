@@ -22,6 +22,7 @@ describe "JobOffersController" do
 
 		it 'should call TwitterClient when create_and_twit is present' do
 			JobVacancy::App.any_instance.stub(:current_user).and_return(current_user)
+			JobVacancy::App.any_instance.stub(:not_valid_offer?).and_return(false)
 			JobOffer.any_instance.stub(:save).and_return(true)
 			TwitterClient.should_receive(:publish)
 			post '/job_offers/create', { :job_offer => {:title => 'Programmer offer', :expiration_date => ((Date.today + 2).to_s) },
@@ -31,6 +32,7 @@ describe "JobOffersController" do
 
 		it 'should not call TwitterClient when create_and_twit not present' do
 			JobVacancy::App.any_instance.stub(:current_user).and_return(current_user)
+			JobVacancy::App.any_instance.stub(:not_valid_offer?).and_return(false)
 			JobOffer.any_instance.stub(:save).and_return(true)
 			TwitterClient.should_not_receive(:publish)
 			post '/job_offers/create', { :job_offer => {:title => 'Programmer offer', :expiration_date => ((Date.today + 2).to_s)  } }

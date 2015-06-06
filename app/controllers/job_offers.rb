@@ -56,9 +56,7 @@ JobVacancy::App.controllers :job_offers do
       render 'job_offers/new'
     end
     if @job_offer.save
-
-      twit_if_possible
-
+      TwitterClient.publish(@job_offer) if params['create_and_twit']
       flash[:success] = 'Offer created'
       redirect '/job_offers/my'
     else
