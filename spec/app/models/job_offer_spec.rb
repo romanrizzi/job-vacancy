@@ -60,8 +60,8 @@ describe JobOffer do
 
     let(:user) { User.create(name: 'Test User', password: '123abc', email: 'test@user.com') }
     let(:java_dev_offer) { JobOffer.create(title: 'Java Developer', user: user) }
-    let(:offer_with_exact_same_tile) { JobOffer.create(title: 'Java Developer', user: user, created_on: Date.new(2015, 01, 01)) }
-    let(:casing_offer) { JobOffer.create(title: 'jAvA deVELopeR', user: user, created_on: Date.new(2015, 01, 01)) }
+    let(:offer_with_exact_same_tile) { JobOffer.create(title: 'Java Developer', user: user) }
+    let(:casing_offer) { JobOffer.create(title: 'jAvA deVELopeR', user: user) }
 
     before :each do
       JobOffer.all.destroy
@@ -70,13 +70,13 @@ describe JobOffer do
 
     it 'should add a (2) to the latest created offer title, (1) to the next one and so on' do
       offer_with_exact_same_tile
-      JobOffer.create(title: 'Java Developer', user: user, created_on: java_dev_offer.created_on + 3)
+      JobOffer.create(title: 'Java Developer', user: user)
 
       offers = JobOffer.find_by_owner user
 
       expect(offers.first.title).to eq java_dev_offer.title
       expect(offers[1].title).to eq 'Java Developer(1)'
-      expect(offers[2].title).to eq 'Java Developer(2)'
+      expect(offers[2].title).to eq 'Java Developer(1)(1)'
     end
 
     it 'should ignore casing when looking for duplicated titles' do
@@ -89,12 +89,21 @@ describe JobOffer do
     end
 
     it 'should ignore spaces when looking for duplicated titles' do
-      JobOffer.create(title: 'JavaDevel  oper', user: user, created_on: Date.new(2015, 01, 01))
+      JobOffer.create(title: 'JavaDevel  oper', user: user)
 
       offers = JobOffer.find_by_owner user
 
       expect(offers.first.title).to eq java_dev_offer.title
       expect(offers[1].title).to eq 'JavaDevel  oper(1)'
+    end
+
+    it 'should not add any index when the titles are different' do
+      JobOffer.create(title: 'Ruby Developer', user: user)
+
+      offers = JobOffer.all
+
+      expect(offers.first.title).to eq java_dev_offer.title
+      expect(offers[1].title).to eq 'Ruby Developer'
     end
   end
 

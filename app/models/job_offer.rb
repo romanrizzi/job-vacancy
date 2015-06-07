@@ -14,8 +14,7 @@ class JobOffer
 	validates_presence_of :title
 
   before :save do
-    title_occurrences = JobOffer.all.count { |offer| offer.title == self.title }
-    self.title += "(#{title_occurrences.to_s})" unless title_occurrences == 0
+    format_title_if_duplicated
   end
 
 	def owner
@@ -53,4 +52,23 @@ class JobOffer
 		self.is_active = false
 	end
 
+  private
+
+  def format_title_if_duplicated
+    title_occurrences = count_title_occurrences
+    unless title_occurrences.zero?
+      self.title += "(#{title_occurrences.to_s})"
+      format_title_if_duplicated
+    end
+  end
+
+  def count_title_occurrences
+    JobOffer.all.select {
+        |offer| has_the_same_title_ignoring_casing_and_spaces?(offer)
+    }.size
+  end
+
+  def has_the_same_title_ignoring_casing_and_spaces?(an_offer)
+    an_offer.title.downcase.delete(' ').eql? title.downcase.delete(' ')
+  end
 end
