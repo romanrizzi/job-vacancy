@@ -68,15 +68,17 @@ describe JobOffer do
       java_dev_offer
     end
 
-    it 'should add a (2) to the latest created offer title, (1) to the next one and so on' do
+    it 'should add a (3) to the latest created offer title, (2) to the next one and so on, when 4 offers have the same title' do
       offer_with_exact_same_tile
+      JobOffer.create(title: 'Java Developer', user: user)
       JobOffer.create(title: 'Java Developer', user: user)
 
       offers = JobOffer.find_by_owner user
 
       expect(offers.first.title).to eq java_dev_offer.title
       expect(offers[1].title).to eq 'Java Developer(1)'
-      expect(offers[2].title).to eq 'Java Developer(1)(1)'
+      expect(offers[2].title).to eq 'Java Developer(2)'
+      expect(offers[3].title).to eq 'Java Developer(3)'
     end
 
     it 'should ignore casing when looking for duplicated titles' do

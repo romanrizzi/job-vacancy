@@ -9,11 +9,13 @@ class JobOffer
   property :created_on, Date
   property :updated_on, Date
   property :is_active, Boolean, :default => true
+  property :original_title, String, :accessor => :private
 	belongs_to :user
 
 	validates_presence_of :title
 
   before :save do
+    self.original_title = self.title
     format_title_if_duplicated
   end
 
@@ -58,17 +60,20 @@ class JobOffer
     title_occurrences = count_title_occurrences
     unless title_occurrences.zero?
       self.title += "(#{title_occurrences.to_s})"
-      format_title_if_duplicated
     end
   end
 
   def count_title_occurrences
     JobOffer.all.select {
-        |offer| has_the_same_title_ignoring_casing_and_spaces?(offer)
+      |offer| has_the_same_title_ignoring_casing_and_spaces?(offer)
     }.size
   end
 
   def has_the_same_title_ignoring_casing_and_spaces?(an_offer)
-    an_offer.title.downcase.delete(' ').eql? title.downcase.delete(' ')
+    downcase_without_spaces(an_offer.send(:original_title)).eql?(downcase_without_spaces(title))
+  end
+
+  def downcase_without_spaces a_title
+    a_title.downcase.delete(' ')
   end
 end
