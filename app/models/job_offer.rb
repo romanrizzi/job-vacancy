@@ -9,7 +9,7 @@ class JobOffer
   property :created_on, Date
   property :updated_on, Date
   property :is_active, Boolean, :default => true
-  property :visit_counter, Integer
+  property :visit_counter, Integer, :default => 0
 	belongs_to :user
 
 	validates_presence_of :title
@@ -51,10 +51,6 @@ class JobOffer
 
   def register_new_visitor
     self.visit_counter = visit_counter.to_i + 1
-  end
-
-  def get_amount_of_visits
-    self.visit_counter.to_i
   end
 
 end

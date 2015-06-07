@@ -61,12 +61,12 @@ describe JobOffer do
     let(:job_offer) { JobOffer.new }
 
     it 'should be zero when a job offer is created' do
-      expect(job_offer.get_amount_of_visits).to eq 0
+      expect(job_offer.visit_counter).to eq 0
     end
 
     it 'should be increase when a job offer is visited' do
       job_offer.register_new_visitor
-      expect(job_offer.get_amount_of_visits).to eq 1
+      expect(job_offer.visit_counter).to eq 1
     end
 
   end
