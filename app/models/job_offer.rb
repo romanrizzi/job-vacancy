@@ -58,19 +58,18 @@ class JobOffer
 
   def format_title_if_duplicated
     title_occurrences = count_title_occurrences
-    unless title_occurrences.zero?
-      self.title += "(#{title_occurrences.to_s})"
-    end
+    self.title += "(#{title_occurrences.to_s})" unless title_occurrences.zero?
   end
 
   def count_title_occurrences
-    JobOffer.all.select {
-      |offer| has_the_same_title_ignoring_casing_and_spaces?(offer)
-    }.size
+    JobOffer.all.inject(0) { |result, offer|
+      has_the_same_title_ignoring_casing_and_spaces?(offer) ? result += 1 : result
+    }
   end
 
   def has_the_same_title_ignoring_casing_and_spaces?(an_offer)
-    downcase_without_spaces(an_offer.send(:original_title)).eql?(downcase_without_spaces(title))
+    downcase_without_spaces(an_offer.send(:original_title)).eql?(downcase_without_spaces(title)) ||
+      downcase_without_spaces(an_offer.title).eql?(downcase_without_spaces(title))
   end
 
   def downcase_without_spaces a_title

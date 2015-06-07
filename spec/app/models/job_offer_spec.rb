@@ -107,6 +107,17 @@ describe JobOffer do
       expect(offers.first.title).to eq java_dev_offer.title
       expect(offers[1].title).to eq 'Ruby Developer'
     end
+
+    it 'should add a second index when another offer is indexed using the same number' do
+      offer_with_exact_same_tile
+      JobOffer.create(title: 'Java Developer(1)', user: user)
+
+      offers = JobOffer.all
+
+      expect(offers.first.title).to eq java_dev_offer.title
+      expect(offers[1].title).to eq 'Java Developer(1)'
+      expect(offers[2].title).to eq 'Java Developer(1)(1)'
+    end
   end
 
 end
