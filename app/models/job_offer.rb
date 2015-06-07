@@ -50,7 +50,7 @@ class JobOffer
   end
 
   def register_new_visitor
-    self.visit_counter = visit_counter.to_i + 1
+    self.visit_counter = visit_counter + 1
   end
 
 end
