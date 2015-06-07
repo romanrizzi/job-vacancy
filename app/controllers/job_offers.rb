@@ -51,7 +51,7 @@ JobVacancy::App.controllers :job_offers do
   post :create do
     @job_offer = JobOffer.new(params[:job_offer])
     @job_offer.owner = current_user
-    if !date_format_valid?
+    if !date_format_valid? params[:job_offer][:expiration_date]
       flash.now[:error] = 'Validate date format'
       return render 'job_offers/new'
     end
