@@ -19,7 +19,7 @@ require File.expand_path(File.dirname(__FILE__) + "/../config/boot")
 RSpec.configure do |conf|
   conf.include Rack::Test::Methods
   conf.include Capybara
-	DataMapper.auto_migrate!
+  DataMapper.auto_migrate!
   DataMapper::Logger.new($stdout, :all)
 end
 

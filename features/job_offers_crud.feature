@@ -12,7 +12,7 @@ Feature: Job Offers CRUD
     Given I access the new offer page
     When I fill the title with "Programmer vacancy"
     And I fill the expiration date with a future date
-		And confirm the new offer
+    And confirm the new offer
     Then I should see "Offer created"
     And I should see "Programmer vacancy" in My Offers
 
