@@ -1,5 +1,8 @@
 Feature: Counting the amount of visits in a job application
 
+  Background:
+    Given I am logged in as job offerer
+
   Scenario:  Offer visited twice
     Given I visit an offer twice
     When I visit the offer page

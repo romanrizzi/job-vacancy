@@ -65,7 +65,7 @@ describe JobOffer do
     end
 
     it 'should be increase when a job offer is visited' do
-      job_offer.new_visitor
+      job_offer.register_new_visitor
       expect(job_offer.get_amount_of_visits).to eq 1
     end
 

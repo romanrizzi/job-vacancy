@@ -49,9 +49,8 @@ class JobOffer
 		self.is_active = false
   end
 
-  def new_visitor
+  def register_new_visitor
     self.visit_counter = visit_counter.to_i + 1
-    save
   end
 
   def get_amount_of_visits
