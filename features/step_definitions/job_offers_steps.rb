@@ -19,6 +19,10 @@ When(/^I fill the title with "(.*?)"$/) do |offer_title|
   fill_in('job_offer[title]', :with => offer_title)
 end
 
+When(/^I fill the expiration date with a future date$/) do
+  fill_in('job_offer[expiration_date]', :with => (Date.today + 2).to_s)
+end
+
 When(/^confirm the new offer$/) do
   click_button('Create')
 end
@@ -76,6 +80,7 @@ end
 def create_offer_with_title(a_title)
   visit '/job_offers/new'
   fill_in('job_offer[title]', :with => a_title)
+  fill_in('job_offer[expiration_date]', :with => (Date.today + 2).to_s)
   click_button('Create')
 end
 

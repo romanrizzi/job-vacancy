@@ -9,11 +9,17 @@ class JobOffer
   property :created_on, Date
   property :updated_on, Date
   property :is_active, Boolean, :default => true
+  property :expiration_date, Date, :default => (Date.today + 30)
   property :original_title, String, :accessor => :private
   property :visit_counter, Integer, :default => 0
 	belongs_to :user
 
-	validates_presence_of :title
+  validates_presence_of :title, :message => 'Title is mandatory'
+  validates_acceptance_of :expiration_date,
+  	:if => lambda { |t| t.expiration_date < Date.today },
+  	:message => 'Date is already expired'
+
+  self.raise_on_save_failure = true
 
   before :save do
     self.original_title = self.title
@@ -29,7 +35,7 @@ class JobOffer
 	end
 
   def self.all_active
-    JobOffer.all(:is_active => true)
+  	JobOffer.all(:is_active => true, :expiration_date.gte => (Date.today - 1))
   end
 
   def self.find_by_owner(user)

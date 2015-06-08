@@ -57,7 +57,7 @@ if ['development', 'test', 'travis'].include?(PADRINO_ENV)
     t.rspec_opts = %w(--format RspecJunitFormatter --out reports/spec/spec.xml)
   end
 
-=begin  
+=begin
   require 'rubocop/rake_task'
   desc 'Run RuboCop on the lib directory'
   Rubocop::RakeTask.new(:rubocop) do |task|

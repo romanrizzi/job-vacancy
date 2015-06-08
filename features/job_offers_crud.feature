@@ -1,3 +1,5 @@
+
+
 Feature: Job Offers CRUD
   In order to get employees
   As a job offerer
@@ -9,7 +11,8 @@ Feature: Job Offers CRUD
   Scenario: Create new offer
     Given I access the new offer page
     When I fill the title with "Programmer vacancy"
-		And confirm the new offer    
+    And I fill the expiration date with a future date
+    And confirm the new offer
     Then I should see "Offer created"
     And I should see "Programmer vacancy" in My Offers
 

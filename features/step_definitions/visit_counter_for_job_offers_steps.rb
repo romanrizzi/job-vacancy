@@ -1,8 +1,8 @@
 Given(/^I visit an offer twice$/) do
   create_new_offer_with 'First Offer','Bernal','The one'
   visit '/job_offers'
-  visit_an_offer_and_apply_with_email 'applicant1@test.com', 2
-  visit_an_offer_and_apply_with_email 'applicant2@test.com', 2
+  visit_an_offer_and_apply_with_email 'applicant1@test.com'
+  visit_an_offer_and_apply_with_email 'applicant2@test.com'
 end
 
 When(/^I visit the offer page$/) do
@@ -10,7 +10,7 @@ When(/^I visit the offer page$/) do
 end
 
 Then(/^I should see that the offer's been visited (\d+) times$/) do |number_of_visits|
-  assert_there_is_a_number_of_visits_in_the_correct_row_and_column number_of_visits.to_i,2, 5
+  assert_there_is_a_number_of_visits_in_the_correct_row_and_column number_of_visits.to_i,2, 6
 end
 
 Given(/^I create a new offer$/) do
@@ -19,7 +19,7 @@ Given(/^I create a new offer$/) do
 end
 
 Then(/^I should see that the offer has (\d+) visits$/) do |number_of_visits|
-  assert_there_is_a_number_of_visits_in_the_correct_row_and_column number_of_visits.to_i,3,5
+  assert_there_is_a_number_of_visits_in_the_correct_row_and_column number_of_visits.to_i,2,6
 end
 
 
@@ -38,11 +38,8 @@ def assert_there_is_a_number_of_visits_in_the_correct_row_and_column number_of_v
   end
 end
 
-def visit_an_offer_and_apply_with_email an_email, row
-  within("table tr:nth-child(#{row})") do
-    click_link 'Apply'
-  end
+def visit_an_offer_and_apply_with_email an_email
+  click_link 'Apply'
   fill_in('job_application[applicant_email]', :with => an_email)
   click_button('Apply')
 end
-

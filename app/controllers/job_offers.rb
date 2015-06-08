@@ -1,14 +1,14 @@
 JobVacancy::App.controllers :job_offers do
-  
+
   get :my do
     @offers = JobOffer.find_by_owner(current_user)
     render 'job_offers/my_offers'
-  end    
+  end
 
   get :index do
     @offers = JobOffer.all_active
     render 'job_offers/list'
-  end  
+  end
 
   get :new do
     @job_offer = JobOffer.new
@@ -42,7 +42,7 @@ JobVacancy::App.controllers :job_offers do
 
 
   post :apply, :with => :offer_id do
-    @job_offer = JobOffer.get(params[:offer_id])    
+    @job_offer = JobOffer.get(params[:offer_id])
     applicant_email = params[:job_application][:applicant_email]
     @job_application = JobApplication.create_for(applicant_email, @job_offer)
     @job_application.process
@@ -53,16 +53,22 @@ JobVacancy::App.controllers :job_offers do
   post :create do
     @job_offer = JobOffer.new(params[:job_offer])
     @job_offer.owner = current_user
-    if @job_offer.save
-      if params['create_and_twit']
-        TwitterClient.publish(@job_offer)
-      end
+    if !date_format_valid? params[:job_offer][:expiration_date]
+      flash.now[:error] = 'Validate date format'
+      return render 'job_offers/new'
+    end
+    begin
+      @job_offer.save
+      TwitterClient.publish(@job_offer) if params['create_and_twit']
       flash[:success] = 'Offer created'
       redirect '/job_offers/my'
-    else
-      flash.now[:error] = 'Title is mandatory'
+
+    rescue DataMapper::SaveFailureError
+      flash.now[:error] = []
+      @job_offer.errors.each { |error| flash.now[:error] << error.first }
+      flash.now[:error] = flash.now[:error].join(', ')
       render 'job_offers/new'
-    end  
+    end
   end
 
   post :update, :with => :offer_id do
@@ -74,7 +80,7 @@ JobVacancy::App.controllers :job_offers do
     else
       flash.now[:error] = 'Title is mandatory'
       render 'job_offers/edit'
-    end  
+    end
   end
 
   put :activate, :with => :offer_id do
@@ -86,7 +92,7 @@ JobVacancy::App.controllers :job_offers do
     else
       flash.now[:error] = 'Operation failed'
       redirect '/job_offers/my'
-    end  
+    end
   end
 
   delete :destroy do

@@ -13,7 +13,7 @@
       	<div class="app-title">
       	<h1>Job Vacancy Board</h1>
       	</div>
-      	<div class="profile"> 
+      	<div class="profile">
 						<% if signed_in? %>
 							<%= current_user.email %>
 						<% end %>
@@ -25,15 +25,15 @@
               <ul class="nav">
                 <li><%= link_to 'Home', url_for(:home, :index) %></li>
                 <li><%= link_to 'Job offers', url_for(:job_offers, :latest) %></li>
-                
-                <% if signed_in? %>	
+
+                <% if signed_in? %>
                 <li><%= link_to 'New Offer', url_for(:job_offers, :new) %></li>
                 <li><%= link_to 'My Offers', url_for(:job_offers, :my) %></li>
 
 								<% end %>
-								<% if signed_in? %>	
+								<% if signed_in? %>
 								<li><%= link_to 'Logout', url_for(:sessions, :destroy) %></li>
-								<% else%>	
+								<% else%>
 								<li><%= link_to 'Login', url_for(:sessions, :login) %></li>
 								<% end %>
               </ul>
@@ -56,8 +56,8 @@
         <p>Job Vacancy Board by NicoPaez | 2014</p>
       </div>
 
-    </div> 
+    </div>
 
-		<%= javascript_include_tag '/assets/application' %> 
+		<%= javascript_include_tag '/assets/application' %>
 		</body>
 </html>
