@@ -151,6 +151,15 @@ describe JobOffer do
       expect(offers[1].title).to eq 'Java Developer(1)'
       expect(offers[2].title).to eq 'Java Developer(1)(1)'
     end
+
+    it 'should index title if it has been modified' do
+      offer_with_exact_same_tile
+
+      java_dev_offer.register_new_visitor
+      java_dev_offer.save
+
+      expect(java_dev_offer.title).to eq 'Java Developer'
+    end
   end
 
   describe 'default expiration date' do

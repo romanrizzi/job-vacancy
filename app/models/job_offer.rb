@@ -22,8 +22,10 @@ class JobOffer
   self.raise_on_save_failure = true
 
   before :save do
-    self.original_title = self.title
-    format_title_if_duplicated
+    if is_being_created_or_title_has_changed?
+      self.original_title = self.title
+      format_title_if_duplicated
+    end
   end
 
 	def owner
@@ -73,7 +75,7 @@ class JobOffer
   end
 
   def count_title_occurrences
-    JobOffer.all.inject(0) { |result, offer|
+    JobOffer.all(:id.not => self.id).inject(0) { |result, offer|
       has_the_same_title_ignoring_casing_and_spaces?(offer) ? result += 1 : result
     }
   end
@@ -85,5 +87,9 @@ class JobOffer
 
   def downcase_without_spaces a_title
     a_title.downcase.delete(' ')
+  end
+
+  def is_being_created_or_title_has_changed?
+    self.id.nil? || (JobOffer.find(self.id).title != self.title)
   end
 end
