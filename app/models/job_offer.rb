@@ -10,6 +10,7 @@ class JobOffer
   property :updated_on, Date
   property :is_active, Boolean, :default => true
   property :original_title, String, :accessor => :private
+  property :visit_counter, Integer, :default => 0
 	belongs_to :user
 
 	validates_presence_of :title
@@ -52,7 +53,11 @@ class JobOffer
 
 	def deactivate
 		self.is_active = false
-	end
+  end
+
+  def register_new_visitor
+    self.visit_counter = visit_counter + 1
+  end
 
   private
 

@@ -15,12 +15,13 @@ describe JobOffer do
 		it { should respond_to( :created_on) }
 		it { should respond_to( :updated_on ) }
 		it { should respond_to( :is_active) }
+    it { should respond_to( :visit_counter) }
 
 	end
 
+  let(:job_offer) { JobOffer.new }
+  
 	describe 'valid?' do
-
-	  let(:job_offer) { JobOffer.new }
 
 	  it 'should be false when title is blank' do
 	  	puts job_offer.owner
@@ -54,6 +55,19 @@ describe JobOffer do
 			JobOffer.deactivate_old_offers
 			expect(today_offer.is_active).to eq true
 		end
+  end
+  
+  describe 'visit_counter' do
+
+    it 'should be zero when a job offer is created' do
+      expect(job_offer.visit_counter).to eq 0
+    end
+
+    it 'should be increase when a job offer is visited' do
+      job_offer.register_new_visitor
+      expect(job_offer.visit_counter).to eq 1
+    end
+
   end
 
   describe 'offers with same title' do
@@ -119,5 +133,4 @@ describe JobOffer do
       expect(offers[2].title).to eq 'Java Developer(1)(1)'
     end
   end
-
 end
