@@ -175,7 +175,7 @@ describe JobOffer do
 
     let(:expired_offer) do
       JobOffer.create(title: 'Java Developer', user: user,
-      expiration_date: Date.today + 5)
+      expiration_date: Date.today + 6)
     end
 
     let(:non_expired_offer) do
