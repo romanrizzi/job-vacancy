@@ -6,16 +6,17 @@
 		<th>Description</th>
 		<th>Is active</th>
 		<th>Expiration date</th>
+		<th>Visits</th>
 		<th>Actions</th>
 	</tr>
 	<% @offers.each do | offer| %>
 
 	<tr>
-			<td>
-			<%= offer.title %>
+		<td>
+		  <%= offer.title %>
 		</td>
 		<td>
-			<%= offer.location %>
+		  <%= offer.location %>
 		</td>
 		<td>
 			<%= offer.description %>
@@ -25,6 +26,9 @@
 		</td>
 		<td>
 			<%= offer.expiration_date %>
+		</td>
+		<td>
+			<%= offer.visit_counter %>
 		</td>
 
 		<td>
