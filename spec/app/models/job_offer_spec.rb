@@ -19,9 +19,9 @@ describe JobOffer do
 
 	end
 
+  let(:job_offer) { JobOffer.new }
+  
 	describe 'valid?' do
-
-	  let(:job_offer) { JobOffer.new }
 
 	  it 'should be false when title is blank' do
 	  	puts job_offer.owner
@@ -56,9 +56,8 @@ describe JobOffer do
 			expect(today_offer.is_active).to eq true
 		end
   end
+  
   describe 'visit_counter' do
-
-    let(:job_offer) { JobOffer.new }
 
     it 'should be zero when a job offer is created' do
       expect(job_offer.visit_counter).to eq 0
@@ -69,5 +68,69 @@ describe JobOffer do
       expect(job_offer.visit_counter).to eq 1
     end
 
+  end
+
+  describe 'offers with same title' do
+
+    let(:user) { User.create(name: 'Test User', password: '123abc', email: 'test@user.com') }
+    let(:java_dev_offer) { JobOffer.create(title: 'Java Developer', user: user) }
+    let(:offer_with_exact_same_tile) { JobOffer.create(title: 'Java Developer', user: user) }
+    let(:casing_offer) { JobOffer.create(title: 'jAvA deVELopeR', user: user) }
+
+    before :each do
+      JobOffer.all.destroy
+      java_dev_offer
+    end
+
+    it 'should add a (3) to the latest created offer title, (2) to the next one and so on, when 4 offers have the same title' do
+      offer_with_exact_same_tile
+      JobOffer.create(title: 'Java Developer', user: user)
+      JobOffer.create(title: 'Java Developer', user: user)
+
+      offers = JobOffer.find_by_owner user
+
+      expect(offers.first.title).to eq java_dev_offer.title
+      expect(offers[1].title).to eq 'Java Developer(1)'
+      expect(offers[2].title).to eq 'Java Developer(2)'
+      expect(offers[3].title).to eq 'Java Developer(3)'
+    end
+
+    it 'should ignore casing when looking for duplicated titles' do
+      casing_offer
+
+      offers = JobOffer.all
+
+      expect(offers.first.title).to eq java_dev_offer.title
+      expect(offers[1].title).to eq 'jAvA deVELopeR(1)'
+    end
+
+    it 'should ignore spaces when looking for duplicated titles' do
+      JobOffer.create(title: 'JavaDevel  oper', user: user)
+
+      offers = JobOffer.find_by_owner user
+
+      expect(offers.first.title).to eq java_dev_offer.title
+      expect(offers[1].title).to eq 'JavaDevel  oper(1)'
+    end
+
+    it 'should not add any index when the titles are different' do
+      JobOffer.create(title: 'Ruby Developer', user: user)
+
+      offers = JobOffer.all
+
+      expect(offers.first.title).to eq java_dev_offer.title
+      expect(offers[1].title).to eq 'Ruby Developer'
+    end
+
+    it 'should add a second index when another offer is indexed using the same number' do
+      offer_with_exact_same_tile
+      JobOffer.create(title: 'Java Developer(1)', user: user)
+
+      offers = JobOffer.all
+
+      expect(offers.first.title).to eq java_dev_offer.title
+      expect(offers[1].title).to eq 'Java Developer(1)'
+      expect(offers[2].title).to eq 'Java Developer(1)(1)'
+    end
   end
 end
