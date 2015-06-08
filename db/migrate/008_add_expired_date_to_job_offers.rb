@@ -6,5 +6,8 @@ migration 8, :add_expired_date_to_job_offers do
   end
 
   down do
+    modify_table :job_offers do
+      drop_column :expired_date
+    end
   end
 end
