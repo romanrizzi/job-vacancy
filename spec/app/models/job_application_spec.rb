@@ -13,6 +13,7 @@ describe JobApplication do
 		it { should respond_to( :last_name) }
 		it { should respond_to( :email) }
 		it { should respond_to( :expected_salary) }
+		it { should respond_to( :cv_link) }
 
 	end
 
