@@ -30,6 +30,7 @@ end
 
 Given(/^I apply to an offer$/) do
   visit '/job_offers'
+  click_link 'Apply'
 end
 
 Then(/^I should see "(.*?)" field$/) do |attribute|

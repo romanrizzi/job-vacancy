@@ -1,4 +1,3 @@
-@wip
 Feature: Job Application
   In order to get a job
   As a candidate
@@ -15,6 +14,7 @@ Feature: Job Application
       And "Expected salary" field
       And "Link to CV" field
 
+  @wip
    Scenario: Apply to job offer
      Given I access the offers list page
      And I apply to an offer

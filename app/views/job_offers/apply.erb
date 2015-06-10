@@ -1,7 +1,7 @@
 <h1>Job Application</h1>
 
 
-<p>Please enter your email address to receive the contanct information for this offer.</p>
+<p>Please fill this form with your information to receive the contanct information for this offer.</p>
 <% form_for(@job_application, "/job_offers/apply/#{@job_offer.id}") do |f| %>
 
 
@@ -11,16 +11,14 @@
 	<%= f.label :last_name %>
 	<%= f.text_field :last_name %>
 
-  <%= f.label :Email %>
+  <%= f.label :email %>
  	<%= f.text_field :applicant_email %>
 
   <%= f.label :expected_salary %>
  	<%= f.text_field :expected_salary %>
 
-	<%= f.label :link_to_cv %>
+	<%= f.label :link_to_cv, {:caption => "Link to CV:"} %>
 	<%= f.text_field :link_to_cv %>
-
-
 
 	<hr/>
   <%= f.submit "Apply", :class => "btn btn-primary" %>
