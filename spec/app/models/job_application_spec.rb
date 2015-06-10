@@ -8,6 +8,8 @@ describe JobApplication do
 
 		it { should respond_to( :applicant_email ) }
 		it { should respond_to( :job_offer) }
+		it { should respond_to( :id) }
+		it { should respond_to( :first_name) }
 
 	end
 
