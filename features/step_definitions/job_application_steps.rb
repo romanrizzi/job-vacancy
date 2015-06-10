@@ -27,3 +27,23 @@ Then(/^I should receive a mail with offerer info$/) do
   content.include?(@job_offer.owner.email).should be true
   content.include?(@job_offer.owner.name).should be true
 end
+
+Given(/^I apply to an offer$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+Then(/^I should see "(.*?)" field$/) do |attribute|
+  pending # express the regexp above with the code you wish you had
+end
+
+Then(/^"(.*?)" field$/) do |attribute|
+  pending # express the regexp above with the code you wish you had
+end
+
+When(/^I fill in the required fields$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+When(/^I confirm$/) do
+  pending # express the regexp above with the code you wish you had
+end
