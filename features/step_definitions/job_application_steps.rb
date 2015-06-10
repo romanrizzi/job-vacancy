@@ -29,11 +29,11 @@ Then(/^I should receive a mail with offerer info$/) do
 end
 
 Given(/^I apply to an offer$/) do
-  pending # express the regexp above with the code you wish you had
+  visit '/job_offers'
 end
 
 Then(/^I should see "(.*?)" field$/) do |attribute|
-  pending # express the regexp above with the code you wish you had
+  page.should have_content(attribute)
 end
 
 Then(/^"(.*?)" field$/) do |attribute|
