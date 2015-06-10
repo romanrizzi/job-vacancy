@@ -5,6 +5,7 @@ class JobApplication
 	property :id, Serial
 	property :first_name, String
 	property :last_name, String
+	property :email, String
 
 	attr_accessor :applicant_email
 	attr_accessor :job_offer
