@@ -6,6 +6,8 @@ class JobApplication
 	property :first_name, String
 	property :last_name, String
 	property :email, String
+	property :expected_salary, Integer
+	
 
 	attr_accessor :applicant_email
 	attr_accessor :job_offer
