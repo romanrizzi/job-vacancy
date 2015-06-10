@@ -37,7 +37,7 @@ Then(/^I should see "(.*?)" field$/) do |attribute|
 end
 
 Then(/^"(.*?)" field$/) do |attribute|
-  pending # express the regexp above with the code you wish you had
+  page.should have_content(attribute)
 end
 
 When(/^I fill in the required fields$/) do
