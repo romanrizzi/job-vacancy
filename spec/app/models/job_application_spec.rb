@@ -53,6 +53,14 @@ describe JobApplication do
 			expect{job_application.save}.to raise_error(DataMapper::SaveFailureError)
 		end
 
+		it 'the email must have a valid format' do |variable|
+				job_application.job_offer = java_dev_offer
+				job_application.first_name = "Pepe"
+				job_application.last_name = 'Grillo'
+				job_application.email = 'fake_email'
+				expect{job_application.save}.to raise_error(DataMapper::SaveFailureError)
+		end
+
 	end
 
 	describe 'create_for' do

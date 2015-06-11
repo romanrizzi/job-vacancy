@@ -5,7 +5,7 @@ class JobApplication
 	property :id, Serial
 	property :first_name, String
 	property :last_name, String
-	property :email, String
+	property :email, String, :format => :email_address
 	property :expected_salary, Integer
 	property :link_to_cv , String
 	belongs_to :job_offer
