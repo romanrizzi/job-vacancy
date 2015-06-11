@@ -16,6 +16,18 @@ describe JobApplication do
 
 	end
 
+	describe 'valid?' do
+
+		let(:job_application) {
+			JobApplication.new
+		}
+
+		it 'should not be allowed to create an application without a first name' do
+			expect{job_application.save}.to raise_error(DataMapper::SaveFailureError)
+		end
+		
+
+	end
 
 	describe 'create_for' do
 

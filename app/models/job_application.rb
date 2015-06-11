@@ -10,6 +10,10 @@ class JobApplication
 	property :link_to_cv , String
 	belongs_to :job_offer
 
+	validates_presence_of :first_name
+
+	self.raise_on_save_failure = true
+
 	attr_accessor :job_offer
 
 	def self.create_for(email, offer)
