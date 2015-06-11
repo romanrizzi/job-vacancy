@@ -195,7 +195,15 @@ describe JobOffer do
   describe 'job applications' do
     context 'a new offer' do
       it 'should have no job applications' do
-        expect(JobApplication.all(:job_offer_id => job_offer.id).empty?).to be_truthy
+        expect(JobApplication.find_by_job_offer(job_offer).empty?).to be_truthy
+      end
+    end
+
+    context 'when a person applies' do
+      it 'the offer should have that new job application' do
+        job_application = JobApplication.create(first_name: 'Someone', last_name: 'Last name', email: 'he@mail.com', job_offer_id: java_dev_offer.id)
+
+        expect(JobApplication.find_by_job_offer(java_dev_offer)).to contain_exactly(job_application)
       end
     end
   end
