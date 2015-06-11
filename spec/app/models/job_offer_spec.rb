@@ -193,4 +193,12 @@ describe JobOffer do
     end
 
   end
+
+  describe 'job applications' do
+    context 'a new offer' do
+      it 'should have no job applications' do
+        expect(job_offer.job_applications.empty?).to be_truthy
+      end
+    end
+  end
 end
