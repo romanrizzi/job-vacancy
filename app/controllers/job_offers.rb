@@ -44,8 +44,9 @@ JobVacancy::App.controllers :job_offers do
 
   post :apply, :with => :offer_id do
     @job_offer = JobOffer.get(params[:offer_id])
-    @job_application = JobApplication.create(params[:job_application])
-    @job_application.job_offer = @job_offer
+    hash = params[:job_application]
+    hash[:job_offer] = @job_offer
+    @job_application = JobApplication.create(hash)
     @job_application.process
     flash[:success] = 'Contact information sent.'
     redirect '/job_offers'

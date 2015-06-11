@@ -50,5 +50,5 @@ When(/^I fill in the required fields$/) do
 end
 
 When(/^I confirm$/) do
-  pending # express the regexp above with the code you wish you had
+  click_button('Apply')
 end

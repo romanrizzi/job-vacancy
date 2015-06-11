@@ -24,6 +24,6 @@ RSpec.configure do |conf|
 end
 
 def app
-  JobVacancy::App.tap { |app|  }
+  JobVacancy::App.tap { |app| }
   JobVacancy::App.set :protect_from_csrf, false
 end

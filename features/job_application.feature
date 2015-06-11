@@ -14,7 +14,7 @@ Feature: Job Application
       And "Expected salary" field
       And "Link to CV" field
 
-  
+
    Scenario: Apply to job offer
      Given I access the offers list page
      And I apply to an offer

@@ -7,7 +7,7 @@ migration 11, :add_applicant_information_to_job_application do
       column :email, DataMapper::Property::String, :length => 255
       column :expected_salary, Integer
       column :link_to_cv, DataMapper::Property::String, :length => 255
-      column :offer_id, Integer
+      column :job_offer_id, Integer
     end
   end
 
