@@ -21,8 +21,8 @@ describe JobOffer do
   let(:user) do
     User.create(name: 'Test User', password: '123abc', email: 'test@user.com')
   end
-
   let(:job_offer) { JobOffer.new }
+  let(:java_dev_offer) { JobOffer.create(title: 'Java Developer', user: user) }
 
   before :each do
     JobOffer.all.destroy
@@ -92,8 +92,6 @@ describe JobOffer do
 
   describe 'offers with same title' do
 
-    let(:user) { User.create(name: 'Test User', password: '123abc', email: 'test@user.com') }
-    let(:java_dev_offer) { JobOffer.create(title: 'Java Developer', user: user) }
     let(:offer_with_exact_same_tile) { JobOffer.create(title: 'Java Developer', user: user) }
     let(:casing_offer) { JobOffer.create(title: 'jAvA deVELopeR', user: user) }
 
@@ -197,7 +195,7 @@ describe JobOffer do
   describe 'job applications' do
     context 'a new offer' do
       it 'should have no job applications' do
-        expect(job_offer.job_applications.empty?).to be_truthy
+        expect(JobApplication.all(:job_offer_id => job_offer.id).empty?).to be_truthy
       end
     end
   end
