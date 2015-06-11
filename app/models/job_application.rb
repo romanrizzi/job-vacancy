@@ -7,7 +7,7 @@ class JobApplication
 	property :last_name, String
 	property :email, String, :format => :email_address
 	property :expected_salary, Integer
-	property :link_to_cv , String
+	property :link_to_cv , String, :format => :url
 	belongs_to :job_offer
 
 	validates_presence_of :first_name
