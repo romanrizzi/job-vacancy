@@ -7,6 +7,7 @@
     <th>Is active</th>
     <th>Expiration date</th>
     <th>Visits</th>
+    <th>Applicants</th>
     <th>Actions</th>
   </tr>
   <% @offers.each do | offer| %>
@@ -30,7 +31,9 @@
     <td>
       <%= offer.visit_counter %>
     </td>
-
+    <td>
+      <%= link_to 'Applicants', class:'btn' %>
+    </td>
     <td>
       <%= link_to 'Edit', url_for(:job_offers, :edit, :offer_id => offer.id), :class => "btn btn-primary" %>
       <%- form_tag url(:job_offers, :destroy, :offer_id => offer.id), :method => :delete, :style => 'display:inline' do %>

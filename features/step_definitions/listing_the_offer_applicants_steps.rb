@@ -17,11 +17,11 @@ When(/^I log in as a job offerer$/) do
 end
 
 When(/^I visit my offers page$/) do
-  visit '/my'
+  visit '/job_offers/my'
 end
 
 When(/^I click on “Applicants”$/) do
-  pending # express the regexp above with the code you wish you had
+  click_link('Applicants')
 end
 
 Then(/^I should see applicant info$/) do
