@@ -25,7 +25,6 @@ describe JobApplication do
 		it 'should not be allowed to create an application without a first name' do
 			expect{job_application.save}.to raise_error(DataMapper::SaveFailureError)
 		end
-		
 
 	end
 
