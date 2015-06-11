@@ -10,7 +10,10 @@ Given(/^an applicant apply to my offer$/) do
 end
 
 When(/^I log in as a job offerer$/) do
-  pending # express the regexp above with the code you wish you had
+  visit '/login'
+  fill_in('user[email]', :with => 'offerer@test.com')
+  fill_in('user[password]', :with => 'Passw0rd!')
+  click_button('Login')
 end
 
 When(/^I visit my offers page$/) do
