@@ -46,6 +46,13 @@ describe JobApplication do
 			expect{job_application.save}.to raise_error(DataMapper::SaveFailureError)
 		end
 
+		it 'Should not be allowed to create an application without an email' do
+			job_application.job_offer = java_dev_offer
+			job_application.first_name = "Pepe"
+			job_application.last_name = 'Grillo'
+			expect{job_application.save}.to raise_error(DataMapper::SaveFailureError)
+		end
+
 	end
 
 	describe 'create_for' do
