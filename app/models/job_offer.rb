@@ -13,7 +13,6 @@ class JobOffer
   property :original_title, String, :accessor => :private
   property :visit_counter, Integer, :default => 0
 	belongs_to :user
-  has n, :job_applications
 
   validates_presence_of :title, :message => 'Title is mandatory'
   validates_acceptance_of :expiration_date,
