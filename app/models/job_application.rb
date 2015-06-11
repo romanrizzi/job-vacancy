@@ -11,6 +11,7 @@ class JobApplication
 	belongs_to :job_offer
 
 	validates_presence_of :first_name
+	validates_presence_of :last_name
 
 	self.raise_on_save_failure = true
 
