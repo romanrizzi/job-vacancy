@@ -40,6 +40,6 @@ end
 
 def visit_an_offer_and_apply_with_email an_email
   click_link 'Apply'
-  fill_in('job_application[applicant_email]', :with => an_email)
+  fill_in('job_application[email]', :with => an_email)
   click_button('Apply')
 end

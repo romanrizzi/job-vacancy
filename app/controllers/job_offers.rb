@@ -1,5 +1,6 @@
 JobVacancy::App.controllers :job_offers do
 
+
   get :my do
     @offers = JobOffer.find_by_owner(current_user)
     render 'job_offers/my_offers'
@@ -43,8 +44,8 @@ JobVacancy::App.controllers :job_offers do
 
   post :apply, :with => :offer_id do
     @job_offer = JobOffer.get(params[:offer_id])
-    applicant_email = params[:job_application][:applicant_email]
-    @job_application = JobApplication.create_for(applicant_email, @job_offer)
+    @job_application = JobApplication.create(params[:job_application])
+    @job_application.job_offer = @job_offer
     @job_application.process
     flash[:success] = 'Contact information sent.'
     redirect '/job_offers'

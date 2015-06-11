@@ -42,7 +42,11 @@ Then(/^"(.*?)" field$/) do |attribute|
 end
 
 When(/^I fill in the required fields$/) do
-  pending # express the regexp above with the code you wish you had
+  fill_in('job_application[first_name]', :with => 'Pepe')
+  fill_in('job_application[last_name]', :with => 'Grillo')
+  fill_in('job_application[email]', :with => 'pepe@example.com')
+  fill_in('job_application[expected_salary]', :with => '25000')
+  fill_in('job_application[link_to_cv]', :with => 'http://thepepecv.com')
 end
 
 When(/^I confirm$/) do

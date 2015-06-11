@@ -4,7 +4,6 @@
 <p>Please fill this form with your information to receive the contanct information for this offer.</p>
 <% form_for(@job_application, "/job_offers/apply/#{@job_offer.id}") do |f| %>
 
-
 	<%= f.label :first_name %>
 	<%= f.text_field :first_name %>
 
@@ -12,7 +11,7 @@
 	<%= f.text_field :last_name %>
 
   <%= f.label :email %>
- 	<%= f.text_field :applicant_email %>
+ 	<%= f.text_field :email %>
 
   <%= f.label :expected_salary %>
  	<%= f.text_field :expected_salary %>

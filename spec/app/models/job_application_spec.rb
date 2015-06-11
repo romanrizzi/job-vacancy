@@ -6,14 +6,13 @@ describe JobApplication do
 
 		subject { @job_offer = JobApplication.new }
 
-		it { should respond_to( :applicant_email ) }
 		it { should respond_to( :job_offer) }
 		it { should respond_to( :id) }
 		it { should respond_to( :first_name) }
 		it { should respond_to( :last_name) }
 		it { should respond_to( :email) }
 		it { should respond_to( :expected_salary) }
-		it { should respond_to( :cv_link) }
+		it { should respond_to( :link_to_cv) }
 
 	end
 
@@ -23,7 +22,7 @@ describe JobApplication do
 	  it 'should set applicant_email' do
 	  	email = 'applicant@test.com'
 	  	ja = JobApplication.create_for(email, JobOffer.new)
-	  	ja.applicant_email.should eq email
+	  	ja.email.should eq email
 	  end
 
 	  it 'should set job_offer' do
