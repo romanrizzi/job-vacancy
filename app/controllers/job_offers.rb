@@ -107,4 +107,7 @@ JobVacancy::App.controllers :job_offers do
     redirect 'job_offers/my'
   end
 
+  get :applicants do
+    render 'job_offers/applicants'
+  end
 end

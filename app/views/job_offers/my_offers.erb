@@ -32,7 +32,7 @@
       <%= offer.visit_counter %>
     </td>
     <td>
-      <%= link_to 'Applicants', class:'btn' %>
+      <%= link_to 'Applicants', url(:job_offers, :applicants, offer_id: offer.id), method: :get, class:'btn' %>
     </td>
     <td>
       <%= link_to 'Edit', url_for(:job_offers, :edit, :offer_id => offer.id), :class => "btn btn-primary" %>
