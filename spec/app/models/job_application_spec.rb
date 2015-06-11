@@ -22,7 +22,21 @@ describe JobApplication do
 			JobApplication.new
 		}
 
+		let(:user) {
+			User.create(name: 'Test User', password: '123abc', email: 'test@user.com')
+		}
+
+    let(:java_dev_offer) {
+			 JobOffer.create(title: 'Java Developer', user: user)
+		}
+
+		it 'Should not be allowed to create an application without a job offer' do
+			job_application.first_name = 'Pepe'
+			expect{job_application.save}.to raise_error(DataMapper::SaveFailureError)
+		end
+
 		it 'should not be allowed to create an application without a first name' do
+			job_application.job_offer = java_dev_offer
 			expect{job_application.save}.to raise_error(DataMapper::SaveFailureError)
 		end
 
