@@ -17,7 +17,7 @@ When(/^I log in as a job offerer$/) do
 end
 
 When(/^I visit my offers page$/) do
-  pending # express the regexp above with the code you wish you had
+  visit '/my'
 end
 
 When(/^I click on “Applicants”$/) do
