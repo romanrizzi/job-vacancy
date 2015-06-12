@@ -25,5 +25,15 @@ When(/^I click on “Applicants”$/) do
 end
 
 Then(/^I should see applicant info$/) do
-  pending # express the regexp above with the code you wish you had
+  assert_values_exists_on_table_row 'th', 1, ['First name', 'Last name', 'Email', 'Expected salary', 'Link to CV']
+  assert_values_exists_on_table_row 'td', 2, ['Carlin', 'Calvo', 'carlin@hacker.com', '11000', 'http://thepiratebay.com']
+end
+
+def assert_values_exists_on_table_row column_property_name, row_number, values
+  within("table tr:nth-child(#{row_number})") do
+    values.each { |value|
+      index = values.find_index(value) + 1
+      expect(find("#{column_property_name}:nth-child(#{index})").text).to eq value
+    }
+  end
 end

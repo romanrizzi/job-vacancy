@@ -5,7 +5,6 @@ Feature: Listing the offer applicants
   Background:
     Given only a "Web Programmer" offer exists in the offers list
 
-  @wip
   Scenario: An applicant apply to an offer
     Given an applicant apply to my offer
     When I log in as a job offerer

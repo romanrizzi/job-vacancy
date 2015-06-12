@@ -1,0 +1,29 @@
+<h1>Applicants of <%= @job_offer.title %></h1>
+<table class="table table-bordered">
+  <tr>
+    <th>First name</th>
+    <th>Last name</th>
+    <th>Email</th>
+    <th>Expected salary</th>
+    <th>Link to CV</th>
+  </tr>
+  <% @applicants.each do |applicant| %>
+    <tr>
+      <td>
+        <%= applicant.first_name %>
+      </td>
+      <td>
+        <%= applicant.last_name %>
+      </td>
+      <td>
+        <%= applicant.email %>
+      </td>
+      <td>
+        <%= applicant.expected_salary %>
+      </td>
+      <td>
+        <%= applicant.link_to_cv %>
+      </td>
+    </tr>
+  <% end %>
+</table>
