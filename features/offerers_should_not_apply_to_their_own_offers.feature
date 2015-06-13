@@ -1,4 +1,3 @@
-@wip
 Feature: Offers page should not show my own offers
   As a job offerer
   I can not apply to my own offers

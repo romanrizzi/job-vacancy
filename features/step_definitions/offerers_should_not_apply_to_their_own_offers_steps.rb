@@ -1,7 +1,9 @@
 When(/^I visit the offers page$/) do
-  pending # express the regexp above with the code you wish you had
+  visit '/job_offers/latest'
 end
 
 Then(/^I should not be able to apply to my offer$/) do
-  pending # express the regexp above with the code you wish you had
+  page.should_not have_content('new job offer')
+  page.should_not have_content('Wilde')
+  page.should_not have_content('Cool job')
 end
