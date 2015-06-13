@@ -67,6 +67,10 @@ class JobOffer
     self.visit_counter = visit_counter + 1
   end
 
+  def self.find_active_offers_to_apply_by(a_log_user=nil)
+    JobOffer.all(:is_active => true, :expiration_date.gte => (Date.today), :user.not => a_log_user)
+  end
+
   private
 
   def format_title_if_duplicated
