@@ -9,6 +9,7 @@ Feature: Offers page should not show my own offers
     Given I create a new offer
     When I visit the offers page
     Then I should not be able to apply to my offer
+
   @wip
   Scenario: There are two offers, only one is mine
     Given another user create an offer
