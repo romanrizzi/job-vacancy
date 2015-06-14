@@ -27,5 +27,5 @@ Feature: Job Application
     Given I access the offers list page
     And I apply to an offer
     When I use an invalid Email
-    And I Confirm
+    And I confirm
     Then I should see an invalid Email message

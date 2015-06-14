@@ -54,11 +54,12 @@ Then(/^an error for the "(.*?)"$/) do |attribute|
 end
 
 When(/^I use an invalid Email$/) do
-  pending # express the regexp above with the code you wish you had
-end
+    fill_in('job_application[first_name]', :with => 'Pepe')
+    fill_in('job_application[last_name]', :with => 'Grillo')
+    fill_in('job_application[expected_salary]', :with => '25000')
+    fill_in('job_application[link_to_cv]', :with => 'http://thepepecv.com')
 
-When(/^I Confirm$/) do
-  pending # express the regexp above with the code you wish you had
+    fill_in('job_application[email]', :with => 'fake_email')
 end
 
 Then(/^I should see an invalid Email message$/) do
