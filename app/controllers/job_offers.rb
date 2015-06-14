@@ -54,9 +54,7 @@ JobVacancy::App.controllers :job_offers do
       redirect '/job_offers'
 
     rescue DataMapper::SaveFailureError
-      flash.now[:error] = []
-      @job_application.errors.each { |error| flash.now[:error] << error.first }
-      flash.now[:error] = flash.now[:error].join(', ')
+      display_errors_for @job_application
       render 'job_offers/apply'
     end
   end
@@ -75,9 +73,7 @@ JobVacancy::App.controllers :job_offers do
       redirect '/job_offers/my'
 
     rescue DataMapper::SaveFailureError
-      flash.now[:error] = []
-      @job_offer.errors.each { |error| flash.now[:error] << error.first }
-      flash.now[:error] = flash.now[:error].join(', ')
+      display_errors_for @job_offer
       render 'job_offers/new'
     end
   end
