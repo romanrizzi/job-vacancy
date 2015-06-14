@@ -46,10 +46,19 @@ JobVacancy::App.controllers :job_offers do
     @job_offer = JobOffer.get(params[:offer_id])
     hash = params[:job_application]
     hash[:job_offer] = @job_offer
-    @job_application = JobApplication.create(hash)
-    @job_application.process
-    flash[:success] = 'Contact information sent.'
-    redirect '/job_offers'
+    @job_application = JobApplication.new(hash)
+    begin
+      @job_application.save
+      @job_application.process
+      flash[:success] = 'Contact information sent.'
+      redirect '/job_offers'
+
+    rescue DataMapper::SaveFailureError
+      flash.now[:error] = []
+      @job_application.errors.each { |error| flash.now[:error] << error.first }
+      flash.now[:error] = flash.now[:error].join(', ')
+      render 'job_offers/apply'
+    end
   end
 
   post :create do
