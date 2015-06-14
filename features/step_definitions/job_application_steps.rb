@@ -41,7 +41,8 @@ When(/^I confirm$/) do
 end
 
 When(/^I don’t fill in any of the required fields$/) do
-  pending # express the regexp above with the code you wish you had
+  fill_in('job_application[expected_salary]', :with => '25000')
+  fill_in('job_application[link_to_cv]', :with => 'http://thepepecv.com')
 end
 
 Then(/^I should see an error for the “First Name”$/) do
