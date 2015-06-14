@@ -16,7 +16,7 @@ JobVacancy::App.controllers :job_offers do
   end
 
   get :latest do
-    @offers = JobOffer.find_active_offers_to_apply_by(current_user)
+    @offers = JobOffer.find_active_offers_to_be_applied_by(current_user)
     render 'job_offers/list'
   end
 
