@@ -52,3 +52,15 @@ end
 Then(/^an error for the "(.*?)"$/) do |attribute|
   page.should have_content("#{attribute} is mandatory ")
 end
+
+When(/^I use an invalid Email$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+When(/^I Confirm$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+Then(/^I should see an invalid Email message$/) do
+  pending # express the regexp above with the code you wish you had
+end

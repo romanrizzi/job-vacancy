@@ -15,9 +15,17 @@ Feature: Job Application
     And an error for the "Last name"
     And an error for the "Email"
 
-   Scenario: Apply to job offer
-     Given I access the offers list page
-     And I apply to an offer
-     When I fill in the required fields
-     And I confirm
-     Then I should receive a mail with offerer info
+  Scenario: Apply to job offer
+    Given I access the offers list page
+    And I apply to an offer
+    When I fill in the required fields
+    And I confirm
+    Then I should receive a mail with offerer info
+
+  @wip
+  Scenario: Enter an invalid Email
+    Given I access the offers list page
+    And I apply to an offer
+    When I use an invalid Email
+    And I Confirm
+    Then I should see an invalid Email message
