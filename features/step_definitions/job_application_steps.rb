@@ -28,14 +28,6 @@ Given(/^I apply to an offer$/) do
   click_link 'Apply'
 end
 
-Then(/^I should see "(.*?)" field$/) do |attribute|
-  page.should have_content(attribute)
-end
-
-Then(/^"(.*?)" field$/) do |attribute|
-  page.should have_content(attribute)
-end
-
 When(/^I fill in the required fields$/) do
   fill_in('job_application[first_name]', :with => 'Pepe')
   fill_in('job_application[last_name]', :with => 'Grillo')
@@ -46,4 +38,20 @@ end
 
 When(/^I confirm$/) do
   click_button('Apply')
+end
+
+When(/^I don’t fill in any of the required fields$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+Then(/^I should see an error for the “First Name”$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+Then(/^an error for the “Last Name”$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+Then(/^an error for the “Email”$/) do
+  pending # express the regexp above with the code you wish you had
 end
