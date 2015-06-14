@@ -112,4 +112,9 @@ JobVacancy::App.controllers :job_offers do
     redirect 'job_offers/my'
   end
 
+  get :applicants do
+    @job_offer = JobOffer.get(params[:offer_id])
+    @applicants = JobApplication.find_by_job_offer(@job_offer)
+    render 'job_offers/applicants'
+  end
 end

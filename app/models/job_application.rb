@@ -26,6 +26,9 @@ class JobApplication
 		app
 	end
 
+	def self.find_by_job_offer(a_job_offer)
+    JobApplication.all(:job_offer_id => a_job_offer.id)
+  end
 
 	def process
     JobVacancy::App.deliver(:notification, :contact_info_email, self)
