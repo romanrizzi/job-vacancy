@@ -49,6 +49,6 @@ Then(/^I should see an error for the "(.*?)"$/) do |attribute|
   page.should have_content("#{attribute} is mandatory ")
 end
 
-Then(/^an error for the "(.*?)"$/) do |arg1|
-  pending # express the regexp above with the code you wish you had
+Then(/^an error for the "(.*?)"$/) do |attribute|
+  page.should have_content("#{attribute} is mandatory ")
 end
