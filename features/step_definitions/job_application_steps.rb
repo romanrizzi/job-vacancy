@@ -45,14 +45,10 @@ When(/^I don’t fill in any of the required fields$/) do
   fill_in('job_application[link_to_cv]', :with => 'http://thepepecv.com')
 end
 
-Then(/^I should see an error for the “First Name”$/) do
-  pending # express the regexp above with the code you wish you had
+Then(/^I should see an error for the "(.*?)"$/) do |attribute|
+  page.should have_content("#{attribute} is mandatory ")
 end
 
-Then(/^an error for the “Last Name”$/) do
-  pending # express the regexp above with the code you wish you had
-end
-
-Then(/^an error for the “Email”$/) do
+Then(/^an error for the "(.*?)"$/) do |arg1|
   pending # express the regexp above with the code you wish you had
 end

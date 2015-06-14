@@ -12,9 +12,9 @@ Feature: Job Application
     And I apply to an offer
     When I don’t fill in any of the required fields
     And I confirm
-    Then I should see an error for the “First Name”
-    And an error for the “Last Name”
-    And an error for the “Email”
+    Then I should see an error for the "First Name"
+    And an error for the "Last Name"
+    And an error for the "Email"
 
    Scenario: Apply to job offer
      Given I access the offers list page
