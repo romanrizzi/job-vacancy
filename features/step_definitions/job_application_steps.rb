@@ -63,5 +63,5 @@ When(/^I use an invalid Email$/) do
 end
 
 Then(/^I should see an invalid Email message$/) do
-  pending # express the regexp above with the code you wish you had
+  page.should have_content("Email has an invalid format")
 end

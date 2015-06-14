@@ -22,7 +22,6 @@ Feature: Job Application
     And I confirm
     Then I should receive a mail with offerer info
 
-  @wip
   Scenario: Enter an invalid Email
     Given I access the offers list page
     And I apply to an offer
