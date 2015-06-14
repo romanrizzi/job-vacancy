@@ -10,9 +10,9 @@ class JobApplication
 	property :link_to_cv , String, :format => :url
 	belongs_to :job_offer
 
-	validates_presence_of :first_name
-	validates_presence_of :last_name
-	validates_presence_of :email
+	validates_presence_of :first_name, :message => "First name is mandatory"
+	validates_presence_of :last_name, :message => "Last name is mandatory"
+	validates_presence_of :email, :message => "Email is mandatory"
 
 	self.raise_on_save_failure = true
 
