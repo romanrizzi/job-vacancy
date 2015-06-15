@@ -207,4 +207,31 @@ describe JobOffer do
       end
     end
   end
+
+  describe 'An user should not be able to apply to its own offers' do
+
+    let(:user) { User.create(name: 'Test User', password: '123abc', email: 'test@user.com') }
+    let(:another_user) { User.create(name: 'Other User', password: 'abc123', email: 'test@user2.com') }
+    let(:example_offer) { JobOffer.create(title: 'example offer', user: user) }
+
+    it 'should not show my own offers' do
+
+      expect(JobOffer.find_active_offers_to_be_applied_by(self).size).to eq(0)
+
+    end
+
+    it 'should show the offers from another user' do
+
+      another_offer=JobOffer.create(title:'not my offer', user: another_user)
+      expect(JobOffer.find_active_offers_to_be_applied_by(self)).to contain_exactly(another_offer)
+
+    end
+
+    it 'should show all the offer to a visitor' do
+
+      another_offer=JobOffer.create(title:'not my offer', user: another_user)
+
+      expect(JobOffer.find_active_offers_to_be_applied_by).to contain_exactly(another_offer,example_offer)
+    end
+  end
 end
