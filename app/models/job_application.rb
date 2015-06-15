@@ -19,13 +19,6 @@ class JobApplication
 
 	attr_accessor :job_offer
 
-	def self.create_for(email, offer)
-		app = JobApplication.new
-		app.email = email
-		app.job_offer = offer
-		app
-	end
-
 	def self.find_by_job_offer(a_job_offer)
     JobApplication.all(:job_offer_id => a_job_offer.id)
   end
