@@ -9,4 +9,10 @@ JobVacancy::App.helpers do
     y, m, d = a_date.split('-')
     Date.valid_date? y.to_i, m.to_i, d.to_i
   end
+
+  def display_errors_for job_element
+    flash.now[:error] = []
+    job_element.errors.each { |error| flash.now[:error] << error.first }
+    flash.now[:error] = flash.now[:error].join(', ')
+  end
 end

@@ -40,6 +40,10 @@ end
 
 def visit_an_offer_and_apply_with_email an_email
   click_link 'Apply'
-  fill_in('job_application[applicant_email]', :with => an_email)
+  fill_in('job_application[email]', :with => an_email)
+  fill_in('job_application[first_name]', :with => 'Pepe')
+  fill_in('job_application[last_name]', :with => 'Grillo')
+  fill_in('job_application[expected_salary]', :with => '25000')
+  fill_in('job_application[link_to_cv]', :with => 'http://thepepecv.com')
   click_button('Apply')
 end

@@ -21,8 +21,8 @@ describe JobOffer do
   let(:user) do
     User.create(name: 'Test User', password: '123abc', email: 'test@user.com')
   end
-
   let(:job_offer) { JobOffer.new }
+  let(:java_dev_offer) { JobOffer.create(title: 'Java Developer', user: user) }
 
   before :each do
     JobOffer.all.destroy
@@ -92,8 +92,6 @@ describe JobOffer do
 
   describe 'offers with same title' do
 
-    let(:user) { User.create(name: 'Test User', password: '123abc', email: 'test@user.com') }
-    let(:java_dev_offer) { JobOffer.create(title: 'Java Developer', user: user) }
     let(:offer_with_exact_same_tile) { JobOffer.create(title: 'Java Developer', user: user) }
     let(:casing_offer) { JobOffer.create(title: 'jAvA deVELopeR', user: user) }
 
@@ -192,6 +190,22 @@ describe JobOffer do
       end
     end
 
+  end
+
+  describe 'job applications' do
+    context 'a new offer' do
+      it 'should have no job applications' do
+        expect(JobApplication.find_by_job_offer(job_offer).empty?).to be_truthy
+      end
+    end
+
+    context 'when a person applies' do
+      it 'the offer should have that new job application' do
+        job_application = JobApplication.create(first_name: 'Someone', last_name: 'Last name', email: 'he@mail.com', job_offer_id: java_dev_offer.id)
+
+        expect(JobApplication.find_by_job_offer(java_dev_offer)).to contain_exactly(job_application)
+      end
+    end
   end
 
   describe 'An user should not be able to apply to its own offers' do
