@@ -79,11 +79,24 @@ describe User do
 
   describe 'reset password' do
 
-    it 'should create an user with a password reset token' do
+    before :each do
       User.stub(:save, {})
-      charles = User.create(name: 'Charles', password: '12345678', email: 'charles@mail.com')
+    end
+
+    let(:charles) { User.create(name: 'Charles', password: '12345678', email: 'charles@mail.com') }
+
+    it 'should generate a password reset token' do
+      charles.generate_password_reset_token
 
       expect(charles.password_reset_token.present?).to be_truthy
+    end
+
+    it 'should have a token that expires two hours after being generated' do
+      charles.generate_password_reset_token
+
+      Timecop.freeze(DateTime.now + 2.1) do
+        expect(charles.has_expired_reset_password_token?).to be_truthy
+      end
     end
   end
 
