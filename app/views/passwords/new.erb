@@ -1,5 +1,5 @@
 <h1>Reset password</h1>
-<% form_for(@user, :send_instructions) do |f| %>
+<% form_for(@user, url(:passwords, :send_instructions)) do |f| %>
   <%= f.label :email %>
   <%= f.text_field :email %>
   <br/>

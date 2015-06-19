@@ -3,6 +3,7 @@ Given(/^I access the reset password page$/) do
 end
 
 When(/^I fill the email with "(.*?)"$/) do |email|
+  @email = email
   fill_in 'user[email]', :with => email
 end
 
@@ -11,7 +12,10 @@ When(/^I confirm it$/) do
 end
 
 Then(/^I should receive a mail with the token$/) do
-  pending # express the regexp above with the code you wish you had
+  mail_store = "#{Padrino.root}/tmp/emails"
+  file = File.open("#{mail_store}/offerer@test.com", 'r')
+  content = file.read
+  content.include?(User.first(:email => @email).password_reset_token).should be true
 end
 
 Given(/^I access the edit password page$/) do

@@ -6,6 +6,16 @@ JobVacancy::App.controllers :passwords do
   end
 
   post :send_instructions do
+    user = User.first(:email => params[:user][:email])
+    if user
+      user.generate_password_reset_token
+      user.save!
+      deliver(:notification, :reset_password_email, user, request.base_url)
+      redirect_to '/'
+    end
+  end
+
+  get :edit, :with => :id do
 
   end
 end
