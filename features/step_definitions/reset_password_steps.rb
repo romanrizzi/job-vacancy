@@ -3,11 +3,11 @@ Given(/^I access the reset password page$/) do
 end
 
 When(/^I fill the email with "(.*?)"$/) do |email|
-  fill_in :email, :with => email
+  fill_in 'user[email]', :with => email
 end
 
 When(/^I confirm it$/) do
-  pending # express the regexp above with the code you wish you had
+  click_button 'Send instructions'
 end
 
 Then(/^I should receive a mail with the token$/) do

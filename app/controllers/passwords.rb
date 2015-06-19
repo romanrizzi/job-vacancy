@@ -5,4 +5,7 @@ JobVacancy::App.controllers :passwords do
     render 'passwords/new'
   end
 
+  post :send_instructions do
+
+  end
 end
