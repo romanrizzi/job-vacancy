@@ -34,7 +34,7 @@ class User
   end
 
   def has_expired_reset_password_token?
-    true
+    self.password_reset_generated_at < 2.hours.ago
   end
 
 end
