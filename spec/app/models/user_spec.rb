@@ -75,7 +75,17 @@ describe User do
 			User.authenticate(email, @password).should eq @user
 		end
 
-	end
+  end
+
+  describe 'reset password' do
+
+    it 'should create an user with a password reset token' do
+      User.stub(:save, {})
+      charles = User.create(name: 'Charles', password: '12345678', email: 'charles@mail.com')
+
+      expect(charles.password_reset_token.present?).to be_truthy
+    end
+  end
 
 end
 

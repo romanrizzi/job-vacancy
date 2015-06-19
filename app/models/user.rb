@@ -5,6 +5,7 @@ class User
   property :name, String
   property :crypted_password, String
   property :email, String
+  property :password_reset_token, String, :writer => :private
   has n, :job_offers
 
   validates_presence_of :name
@@ -12,6 +13,9 @@ class User
   validates_presence_of :email
   validates_format_of   :email,    :with => :email_address
 
+  before :create do
+    self.password_reset_token = SecureRandom.hex(16)
+  end
   def password= (password)
     self.crypted_password = ::BCrypt::Password.create(password) unless password.nil?	
   end
