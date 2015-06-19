@@ -2,8 +2,8 @@ Given(/^I access the reset password page$/) do
   visit '/reset'
 end
 
-When(/^I fill the email with "(.*?)"$/) do |arg1|
-  pending # express the regexp above with the code you wish you had
+When(/^I fill the email with "(.*?)"$/) do |email|
+  fill_in :email, :with => email
 end
 
 When(/^I confirm it$/) do
