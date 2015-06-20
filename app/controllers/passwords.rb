@@ -35,11 +35,15 @@ JobVacancy::App.controllers :passwords do
     @user = User.get(params[:id])
     password_confirmation = params[:user][:password_confirmation]
     if params[:user][:password] == password_confirmation
-      @user.update(password: params[:user][:password])
-      flash[:success] = 'Password has been reset!'
-      redirect '/'
+      if @user.has_expired_reset_password_token?
+        flash[:error] = 'Password reset token has expired.'
+        redirect '/reset'
+      else @user.update(password: params[:user][:password])
+        flash[:success] = 'Password has been reset!'
+        redirect '/'
+      end
     else
-      flash.now[:error] = 'Password and Password confirmation do not match'
+      flash.now[:error] = 'Password and Password confirmation do not match.'
       render 'passwords/edit'
     end
   end

@@ -20,12 +20,23 @@ describe 'PasswordsController' do
   end
 
   context 'update' do
-    it "renders an error when the password and password confirmation don't match" do
-      user = User.create(name: 'Test User', password: '123abc', email: 'test@user.com')
+    let(:user) { User.create(name: 'Test User', password: '123abc', email: 'test@user.com') }
 
+    it "renders an error when the password and password confirmation don't match" do
       post "passwords/update/#{user.id}", :user => { :password => '1234', :password_confirmation => 'a'}
 
-      expect(last_response.body).to include 'Password and Password confirmation do not match'
+      expect(last_response.body).to include 'Password and Password confirmation do not match.'
+    end
+
+    it 'redirects to password reset index page when token is expired' do
+      user.generate_password_reset_token
+      user.save!
+
+      Timecop.freeze(DateTime.now + 2.01) do
+        post "passwords/update/#{user.id}", :user => { :password => '1234', :password_confirmation => '1234'}
+      end
+
+      expect(last_response.location).to eq 'http://example.org/reset'
     end
   end
 end
