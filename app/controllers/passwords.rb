@@ -23,6 +23,11 @@ JobVacancy::App.controllers :passwords do
   get :edit, :with => :token do
     @user = User.first(:password_reset_token => params[:token])
 
+    unless @user
+      flash[:error] = 'Invalid reset token'
+      redirect '/'
+    end
+
     render 'passwords/edit'
   end
 
