@@ -12,6 +12,7 @@ JobVacancy::App.controllers :passwords do
       user.generate_password_reset_token
       user.save!
       deliver(:notification, :reset_password_email, user, request.base_url)
+      flash[:success] = "We've sent you an email with the instructions to reset your password."
       redirect '/'
     else
       flash.now[:error] = "There's no user with email: #{email}"

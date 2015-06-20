@@ -16,6 +16,7 @@ Then(/^I should receive a mail with the token$/) do
   file = File.open("#{mail_store}/offerer@test.com", 'r')
   content = file.read
   content.include?(User.first(:email => @email).password_reset_token).should be true
+  expect(page).to have_content "We've sent you an email with the instructions to reset your password."
 end
 
 Given(/^I access the edit password page$/) do
