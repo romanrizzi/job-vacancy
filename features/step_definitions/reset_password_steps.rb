@@ -21,11 +21,12 @@ end
 Given(/^I access the edit password page$/) do
   user = User.first(:email => 'offerer@test.com')
   user.generate_password_reset_token
-  visit "/edit/#{user.password_reset_token}"
+  user.save!
+  visit "/passwords/edit/#{user.password_reset_token}"
 end
 
-When(/^I fill the password field with “(\d+)”$/) do |arg1|
-  pending # express the regexp above with the code you wish you had
+When(/^I fill the password field with “(\d+)”$/) do |password|
+  fill_in :user_password, :with => password
 end
 
 When(/^I fill the confirm password field with “(\d+)”$/) do |arg1|

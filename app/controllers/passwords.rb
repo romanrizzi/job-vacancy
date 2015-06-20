@@ -16,6 +16,7 @@ JobVacancy::App.controllers :passwords do
   end
 
   get :edit, :with => :token do
-
+    @user = User.first(:password_reset_token => params[:token])
+    render 'passwords/edit', :layout => false
   end
 end
