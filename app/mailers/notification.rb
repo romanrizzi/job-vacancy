@@ -54,7 +54,7 @@ JobVacancy::App.mailer :notification do
     from 'no_reply@jobvacancy.com'
     to user.email
     subject 'Reset password'
-    locals :url => base_url + JobVacancy::App.url(:passwords, :edit, id: user.password_reset_token)
+    locals :url => base_url + JobVacancy::App.url(:passwords, :edit, token: user.password_reset_token)
     content_type :plain
     render 'notification/reset_password_email'
   end

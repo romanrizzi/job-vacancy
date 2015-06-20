@@ -15,7 +15,7 @@ JobVacancy::App.controllers :passwords do
     end
   end
 
-  get :edit, :with => :id do
+  get :edit, :with => :token do
 
   end
 end

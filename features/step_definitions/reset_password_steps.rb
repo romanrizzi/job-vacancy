@@ -19,7 +19,9 @@ Then(/^I should receive a mail with the token$/) do
 end
 
 Given(/^I access the edit password page$/) do
-  pending # express the regexp above with the code you wish you had
+  user = User.first(:email => 'offerer@test.com')
+  user.generate_password_reset_token
+  visit "/edit/#{user.password_reset_token}"
 end
 
 When(/^I fill the password field with “(\d+)”$/) do |arg1|
