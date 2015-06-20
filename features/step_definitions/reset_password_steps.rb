@@ -26,6 +26,7 @@ Given(/^I access the edit password page$/) do
 end
 
 When(/^I fill the password field with “(\d+)”$/) do |password|
+  @password = password
   fill_in :user_password, :with => password
 end
 
@@ -38,5 +39,9 @@ When(/^I submit changes/) do
 end
 
 Then(/^I should be able to log in using the new password$/) do
-  pending # express the regexp above with the code you wish you had
+  visit '/login'
+  fill_in(:user_email, :with => 'offerer@test.com')
+  fill_in(:user_password, :with => @password)
+  click_button('Login')
+  page.should have_content('offerer@test.com')
 end
