@@ -2,7 +2,6 @@ Feature: Reset password
   As a job offerer
   I want to be able to reset my password
 
-  @wip
   Scenario: Send email to reset password
     Given I access the reset password page
     When I fill the email with "offerer@test.com"
