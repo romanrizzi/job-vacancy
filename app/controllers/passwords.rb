@@ -6,12 +6,17 @@ JobVacancy::App.controllers :passwords do
   end
 
   post :send_instructions do
-    user = User.first(:email => params[:user][:email])
+    email = params[:user][:email]
+    user = User.first(:email => email)
     if user
       user.generate_password_reset_token
       user.save!
       deliver(:notification, :reset_password_email, user, request.base_url)
-      redirect_to '/'
+      redirect '/'
+    else
+      flash.now[:error] = "There's no user with email: #{email}"
+      @user = User.new
+      render 'passwords/new'
     end
   end
 
