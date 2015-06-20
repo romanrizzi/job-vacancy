@@ -18,12 +18,13 @@ JobVacancy::App.controllers :passwords do
   get :edit, :with => :token do
     @user = User.first(:password_reset_token => params[:token])
 
-    render 'passwords/edit', :layout => false
+    render 'passwords/edit'
   end
 
   post :update, :with => :id do
     @user = User.get(params[:id])
     @user.update(password: params[:user][:password])
-    redirect '/', flash[:notice] => 'Password has been reset!'
+    flash[:success] = 'Password has been reset!'
+    redirect '/'
   end
 end

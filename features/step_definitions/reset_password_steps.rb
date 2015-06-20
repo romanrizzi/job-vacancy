@@ -36,6 +36,7 @@ end
 
 When(/^I submit changes/) do
   click_button('Update')
+  expect(page).to have_content 'Password has been reset!'
 end
 
 Then(/^I should be able to log in using the new password$/) do
@@ -43,5 +44,5 @@ Then(/^I should be able to log in using the new password$/) do
   fill_in(:user_email, :with => 'offerer@test.com')
   fill_in(:user_password, :with => @password)
   click_button('Login')
-  page.should have_content('offerer@test.com')
+  expect(page).to have_content 'offerer@test.com'
 end

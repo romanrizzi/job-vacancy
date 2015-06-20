@@ -1,19 +1,9 @@
-<!DOCTYPE html>
-<html lang="en-US">
-  <head>
-    <meta charset="utf-8">
-    <title>Job Vacancy Board - find the best jobs</title>
-    <%= stylesheet_link_tag '/assets/application.css' %>
-  </head>
-  <body>
-    <h1>Edit password</h1>
-      <% form_for(@user, url(:passwords, :update, id: @user.id), method: :post) do |f| %>
-        <%= f.label :password %>
-        <%= f.password_field :password %>
-        <%= f.label :password_confirmation %>
-        <%= f.password_field :password_confirmation %>
-        <br/>
-        <%= f.submit "Update", :class => "btn btn-primary" %>
-      <% end %>
-  </body>
-</html>
+<h1>Edit password</h1>
+<% form_for(@user, url(:passwords, :update, id: @user.id), method: :post) do |f| %>
+  <%= f.label :password %>
+  <%= f.password_field :password %>
+  <%= f.label :password_confirmation %>
+  <%= f.password_field :password_confirmation %>
+  <br/>
+  <%= f.submit "Update", :class => "btn btn-primary" %>
+<% end %>
