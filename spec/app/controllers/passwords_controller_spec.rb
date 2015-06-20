@@ -18,4 +18,14 @@ describe 'PasswordsController' do
       expect(last_response.location).to eq 'http://example.org/'
     end
   end
+
+  context 'update' do
+    it "renders an error when the password and password confirmation don't match" do
+      user = User.create(name: 'Test User', password: '123abc', email: 'test@user.com')
+
+      post "passwords/update/#{user.id}", :user => { :password => '1234', :password_confirmation => 'a'}
+
+      expect(last_response.body).to include 'Password and Password confirmation do not match'
+    end
+  end
 end
