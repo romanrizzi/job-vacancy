@@ -29,8 +29,8 @@ When(/^I fill the password field with “(\d+)”$/) do |password|
   fill_in :user_password, :with => password
 end
 
-When(/^I fill the confirm password field with “(\d+)”$/) do |arg1|
-  pending # express the regexp above with the code you wish you had
+When(/^I fill the confirm password field with “(\d+)”$/) do |password_confirmation|
+  fill_in :user_password_confirmation, :with => password_confirmation
 end
 
 Then(/^I should be able to log in using the new password$/) do
