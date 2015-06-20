@@ -33,6 +33,10 @@ When(/^I fill the confirm password field with “(\d+)”$/) do |password_confir
   fill_in :user_password_confirmation, :with => password_confirmation
 end
 
+When(/^I submit changes/) do
+  click_button('Update')
+end
+
 Then(/^I should be able to log in using the new password$/) do
   pending # express the regexp above with the code you wish you had
 end

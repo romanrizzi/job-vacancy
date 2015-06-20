@@ -13,4 +13,5 @@ Feature: Reset password
     Given I access the edit password page
     When I fill the password field with “12345678”
     And I fill the confirm password field with “12345678”
+    And I submit changes
     Then I should be able to log in using the new password
