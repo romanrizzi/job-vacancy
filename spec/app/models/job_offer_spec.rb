@@ -169,53 +169,48 @@ describe JobOffer do
     end
   end
 
-  describe 'expired offers' do
+  describe 'offers have an expiration date' do
 
     let(:expired_offer) do
       JobOffer.create(title: 'Java Developer', user: user,
-      expiration_date: Date.today + 6)
+                      expiration_date: Date.today + 6)
     end
 
     let(:non_expired_offer) do
       JobOffer.create(title: 'Arquitecto Ruby', user: user,
-      expiration_date: Date.today + 10)
+                      expiration_date: Date.today + 10)
     end
 
-    it 'Should retrieve from database the non expired offer' do
-      expired_offer.save
-      non_expired_offer.save
+    describe 'expired offers' do
 
-      Timecop.freeze(Date.today + 7) do
-        expect(JobOffer.all_active).to contain_exactly(non_expired_offer)
-      end
-    end
-
-    describe 'Republishing an expired offer' do
-
-      let(:expired_offer) do
-        JobOffer.create(title: 'Java Developer', user: user,
-                        expiration_date: Date.today + 6)
-      end
-
-      it 'when i invoke the republish method, the expiration date changes' do
+      it 'Should retrieve from database the non expired offer' do
         expired_offer.save
+        non_expired_offer.save
+
         Timecop.freeze(Date.today + 7) do
-          old_expiration_date = expired_offer.expiration_date
-          expired_offer.republish
-          expect(expired_offer.expiration_date).to eq(old_expiration_date + 30)
+          expect(JobOffer.all_active).to contain_exactly(non_expired_offer)
         end
       end
 
-      it 'When the offer is not expired, it cannot be republished' do
-        old_expiration_date = expired_offer.expiration_date
-        expired_offer.republish
-        expect(expired_offer.expiration_date).to eq(old_expiration_date)
+      describe 'Republishing an expired offer' do
+
+        it 'when i invoke the republish method, the expiration date changes' do
+          expired_offer.save
+          Timecop.freeze(Date.today + 7) do
+            old_expiration_date = expired_offer.expiration_date
+            expired_offer.republish
+            expect(expired_offer.expiration_date).to eq(old_expiration_date + 30)
+          end
+        end
+
+        it 'When the offer is not expired, it cannot be republished' do
+          old_expiration_date = expired_offer.expiration_date
+          expired_offer.republish
+          expect(expired_offer.expiration_date).to eq(old_expiration_date)
+        end
       end
     end
-
-
   end
-
   describe 'job applications' do
     context 'a new offer' do
       it 'should have no job applications' do
