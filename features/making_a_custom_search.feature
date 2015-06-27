@@ -9,12 +9,12 @@ Feature: Making a custom search
 
   Scenario: searching job offers by title
     Given I fill in the search field with "title:offer"
-    When I click “search”
+    When I click "search"
     Then I should see offers containing "offer" in their titles
 
   Scenario: searching job offers by description
     Given I fill in the search field with "description:developer"
-    When I click “search”
+    When I click "search"
     Then I should see offers containing "developer" in their descriptions
 
   Scenario: searching job offers by either title or description

@@ -9,10 +9,6 @@ Given(/^I fill in the search field with "(.*?)"$/) do |query|
   fill_in :q, :with => query
 end
 
-When(/^I click “search”$/) do
-  pending # express the regexp above with the code you wish you had
-end
-
 Then(/^I should see offers containing "(.*?)" in their titles$/) do |arg1|
   pending # express the regexp above with the code you wish you had
 end
@@ -21,8 +17,8 @@ Then(/^I should see offers containing "(.*?)" in their descriptions$/) do |arg1|
   pending # express the regexp above with the code you wish you had
 end
 
-When(/^I click "(.*?)"$/) do |arg1|
-  pending # express the regexp above with the code you wish you had
+When(/^I click "(.*?)"$/) do |button|
+  click_button button
 end
 
 Then(/^I should see the offer which title contains "(.*?)"$/) do |arg1|
