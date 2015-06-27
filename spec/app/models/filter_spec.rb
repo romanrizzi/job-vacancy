@@ -47,4 +47,10 @@ describe JobVacancy::Filter do
 
     expect(offers).to eq [java_dev_offer, offer]
   end
+
+  it "should fail when the query does not contain ':' in it" do
+    expect{
+      filter.call 'title'
+    }.to raise_error InvalidQuery, "You must add ':' between the field you want to search by and its value, with no whitespaces in the middle."
+  end
 end
