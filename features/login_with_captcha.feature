@@ -8,7 +8,6 @@ Feature: Login using a captcha
     When I click login
     Then I should be logged in
 
-  @wip
   Scenario: Login submitting the captcha incorrectly
     Given I fill in the captcha textbox with “1111”
     When I click login

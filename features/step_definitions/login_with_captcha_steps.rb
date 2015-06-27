@@ -19,14 +19,17 @@ end
 
 Then(/^I should be logged in$/) do
   page.should have_content('offerer@test.com')
+  page.should have_content('Logout')
 end
 
 Given(/^I fill in the captcha textbox with “(\d+)”$/) do |arg1|
-  pending # express the regexp above with the code you wish you had
+
+  Rack::Recaptcha.test_mode! :return => false
+  #set the captcha response, its give me false
 end
 
 Then(/^I should see an error message related to the wrong captcha$/) do
-  pending # express the regexp above with the code you wish you had
+  page.should have_content('Invalid captcha')
 end
 
 Then(/^I should see a message that tells me captcha is mandatory$/) do
