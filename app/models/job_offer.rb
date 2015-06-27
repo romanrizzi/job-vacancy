@@ -67,6 +67,10 @@ class JobOffer
     self.visit_counter = visit_counter + 1
   end
 
+  def republish
+    self.expiration_date += 30 if self.expiration_date < Date.today
+  end
+
   def self.find_active_offers_to_be_applied_by(a_user=nil)
     JobOffer.all(:is_active => true, :expiration_date.gte => (Date.today), :user.not => a_user)
   end
