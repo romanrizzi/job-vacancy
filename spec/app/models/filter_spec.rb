@@ -14,20 +14,25 @@ describe JobVacancy::Filter do
   end
 
   it 'should filter offers by their titles' do
-    offers = filter.call('title:java')
+    offers = filter.call 'title:java'
 
     expect(offers).to contain_exactly java_dev_offer
   end
 
   it 'should filter offers by their description' do
-    offers = filter.call('description:another')
+    offers = filter.call 'description:another'
 
     expect(offers).to contain_exactly offer
   end
 
   it 'should filter offers by the selected fields' do
-    offers = filter.call('title:java & description:another')
+    offers = filter.call 'title:java & description:another'
 
     expect(offers).to eq [java_dev_offer, offer]
+  end
+
+  it 'should fail when the object to filter does not have the selected field' do
+    field = 'wrong_field'
+    expect{filter.call "#{field}:searching"}.to raise_error InvalidQuery, "The field #{field} does not exists."
   end
 end
