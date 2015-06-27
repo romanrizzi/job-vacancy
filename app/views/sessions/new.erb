@@ -1,11 +1,14 @@
 <h1>Login</h1>
 <% form_for(@user, '/sessions/create') do |f| %>
-	<%= f.label :email %>
+    <%= f.label :email %>
  	<%= f.text_field :email %>
-  <%= f.label :password %>
-  <%= f.password_field :password %>
-  <br/>
-  <%= link_to 'Forgot password?', url(:passwords, :new) %>
-  <br/>
-  <%= f.submit "Login", :id => 'loginButton', :class => "btn btn-primary" %>
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+    <br/>
+    <%= link_to 'Forgot password?', url(:passwords, :new) %>
+    <br/>
+    <br/>
+    <%= recaptcha_tag(:challenge).html_safe %>
+    <br/>
+    <%= f.submit "Login", :id => 'loginButton', :class => "btn btn-primary" %>
 <% end %>

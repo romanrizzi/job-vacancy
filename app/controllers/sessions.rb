@@ -9,7 +9,7 @@ JobVacancy::App.controllers :sessions do
     email = params[:user][:email]
     password = params[:user][:password]
     @user = User.authenticate(email, password)
-    if (@user.nil?)
+    if (@user.nil? || (not recaptcha_valid?))
       @user = User.new
       flash.now[:error] = 'Invalid credentials'
       render 'sessions/new'
