@@ -40,11 +40,12 @@ JobVacancy::App.controllers :job_offers do
     filter = JobVacancy::Filter.new JobOffer
     begin
       @offers = filter.call params[:q]
+      render 'job_offers/list'
     rescue InvalidQuery => e
       @offers = []
       flash.now[:error] = e.message
+      render 'job_offers/list'
     end
-    render 'job_offers/list'
   end
 
 
@@ -68,7 +69,7 @@ JobVacancy::App.controllers :job_offers do
   post :create do
     @job_offer = JobOffer.new(params[:job_offer])
     @job_offer.owner = current_user
-    if !date_format_valid? params[:job_offer][:expiration_date]
+    unless date_format_valid? params[:job_offer][:expiration_date]
       flash.now[:error] = 'Validate date format'
       return render 'job_offers/new'
     end
