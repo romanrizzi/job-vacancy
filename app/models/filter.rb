@@ -7,7 +7,9 @@ class JobVacancy::Filter
   def call a_query
     a_query.split(' & ').inject([]) { |result, query|
       split_query = query.split('')
-      field = query[0 .. query.index(split_query.detect { |char| char == ':' }) - 1]
+      field_index = query.index(split_query.detect { |char| char != ' '})
+      field_end_index = query.index(split_query.detect { |char| char == ':' }) - 1
+      field = query[ field_index .. field_end_index]
       raise InvalidQuery, "The field #{field} does not exists." unless @object_to_filter.properties.collect(&:name).include? field.to_sym
       index = query.index(field)
       if query[index + field.size] == ':'

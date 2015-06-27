@@ -35,4 +35,10 @@ describe JobVacancy::Filter do
     field = 'wrong_field'
     expect{filter.call "#{field}:searching"}.to raise_error InvalidQuery, "The field #{field} does not exists."
   end
+
+  it 'should ignore the whitespaces before the field' do
+    offers = filter.call ' title:java'
+
+    expect(offers).to eq [java_dev_offer]
+  end
 end
