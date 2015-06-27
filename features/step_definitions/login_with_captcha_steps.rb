@@ -1,5 +1,9 @@
 Given(/^Im on the login page and I fill in email with “offerer@test\.com” and password with “Passw(\d+)rd!”$/) do |arg1|
-  pending # express the regexp above with the code you wish you had
+
+  visit '/login'
+  fill_in('user[email]', :with => 'offerer@test.com')
+  fill_in('user[password]', :with => 'Passw0rd!')
+
 end
 
 Given(/^I fill in the captcha textbox with the correct image$/) do
