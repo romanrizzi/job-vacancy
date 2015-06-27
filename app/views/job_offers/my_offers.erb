@@ -36,15 +36,14 @@
     </td>
     <td>
       <%= link_to 'Edit', url_for(:job_offers, :edit, :offer_id => offer.id), :class => "btn btn-primary" %>
-      <%- form_tag url(:job_offers, :destroy, :offer_id => offer.id), :method => :delete, :style => 'display:inline' do %>
-        <button type='submit' title="Delete offer" rel='tooltip' class="btn btn-secondary" >Delete
-        </button>
+      <%= partial 'job_offers/action_button', locals: {method: :destroy, id: offer.id, action: :delete, name: 'Delete'} %>
+
+      <% if offer.expiration_date < Date.today %>
+          <%= partial 'job_offers/action_button', locals: {method: :republish, id: offer.id, action: :put, name: 'Republish'} %>
       <% end %>
+
       <% if not offer.is_active %>
-        <%- form_tag url(:job_offers, :activate, :offer_id => offer.id), :method => :put, :style => 'display:inline' do %>
-          <button type='submit' title="Activate offer" rel='tooltip' class="btn btn-secondary" >Activate
-          </button>
-        <% end %>
+          <%= partial 'job_offers/action_button', locals: {method: :activate, id: offer.id, action: :put, name: 'Activate'} %>
       <% end %>
     </td>
   </tr>

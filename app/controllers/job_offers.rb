@@ -117,4 +117,11 @@ JobVacancy::App.controllers :job_offers do
     @applicants = JobApplication.find_by_job_offer(@job_offer)
     render 'job_offers/applicants'
   end
+
+  put :republish, :with => :offer_id do
+    @job_offer = JobOffer.get(params[:offer_id])
+    @job_offer.republish
+    @job_offer.save
+    redirect 'job_offers/my'
+  end
 end
