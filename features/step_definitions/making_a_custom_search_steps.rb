@@ -5,8 +5,8 @@ Given(/^an offer with title "(.*?)" and description "(.*?)"$/) do |title, descri
   click_button('Create')
 end
 
-Given(/^I fill in the search field with "(.*?)"$/) do |arg1|
-  pending # express the regexp above with the code you wish you had
+Given(/^I fill in the search field with "(.*?)"$/) do |query|
+  fill_in :q, :with => query
 end
 
 When(/^I click “search”$/) do
