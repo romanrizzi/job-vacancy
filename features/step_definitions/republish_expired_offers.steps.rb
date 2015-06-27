@@ -1,5 +1,5 @@
 When(/^I visit my offers$/) do
-  pending # express the regexp above with the code you wish you had
+  visit '/job_offers/my'
 end
 
 When(/^I click republish$/) do
