@@ -33,6 +33,7 @@ gem 'bcrypt-ruby', :require => 'bcrypt'
 gem 'json'
 gem 'clockwork'
 gem 'twitter'
+gem 'rack-recaptcha', :require => 'rack/recaptcha'
 
 # Test requirements
 group :staging, :production do
