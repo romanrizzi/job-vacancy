@@ -17,7 +17,6 @@ Feature: Making a custom search
     When I click "Search"
     Then I should see offers containing "developer" in their descriptions
 
-  @wip
   Scenario: searching job offers by either title or description
     Given I fill in the search field with "title:offer & description:qa"
     When I click "Search"
