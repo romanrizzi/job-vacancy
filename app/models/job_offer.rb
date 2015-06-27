@@ -68,7 +68,7 @@ class JobOffer
   end
 
   def republish
-    self.expiration_date += 30 if self.expiration_date < Date.today
+    self.expiration_date = Date.today + 30 if self.expiration_date < Date.today
   end
 
   def self.find_active_offers_to_be_applied_by(a_user=nil)

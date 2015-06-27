@@ -197,9 +197,8 @@ describe JobOffer do
         it 'when i invoke the republish method, the expiration date changes' do
           expired_offer.save
           Timecop.freeze(Date.today + 7) do
-            old_expiration_date = expired_offer.expiration_date
             expired_offer.republish
-            expect(expired_offer.expiration_date).to eq(old_expiration_date + 30)
+            expect(expired_offer.expiration_date).to eq(Date.today + 30)
           end
         end
 
