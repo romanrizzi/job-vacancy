@@ -6,25 +6,25 @@ class JobVacancy::Filter
 
   def call a_query
     a_query.split(' & ').inject([]) { |result, query|
-      split_query = query.split('')
-      validate_query_syntax(split_query)
+      validate_query_syntax(query)
 
+      split_query = query.split('')
       field_index = query.index(split_query.detect { |char| char != ' '})
-      field_end_index = query.index(split_query.detect { |char| char == ':' }) - 1
-      field = query[field_index .. field_end_index]
+      separator_index = query.index(split_query.detect { |char| char == ':' })
+      field_end_index = separator_index - 1
+      field = query[field_index .. field_end_index].to_sym
       validate_field_exists_in_model(field)
 
-      index = query.index(field)
-      value = query[index + field.size + 1 ... query.size]
+      value = query[separator_index + 1 ... query.size]
 
-      result.concat @object_to_filter.all(field.to_sym.like => "%#{value}%")
+      result.concat @object_to_filter.all(field.like => "%#{value}%")
     }.uniq
   end
 
   protected
 
   def validate_field_exists_in_model(field)
-    raise InvalidQuery, "The field #{field} does not exists." unless @object_to_filter.properties.collect(&:name).include? field.to_sym
+    raise InvalidQuery, "The field #{field} does not exists." unless @object_to_filter.properties.collect(&:name).include? field
   end
 
   def validate_query_syntax(a_query)
