@@ -38,7 +38,12 @@ JobVacancy::App.controllers :job_offers do
 
   post :search do
     filter = JobVacancy::Filter.new JobOffer
-    @offers = filter.call params[:q]
+    begin
+      @offers = filter.call params[:q]
+    rescue InvalidQuery => e
+      @offers = []
+      flash.now[:error] = e.message
+    end
     render 'job_offers/list'
   end
 
