@@ -1,10 +1,10 @@
 <h1>Current Job Offers</h1>
 <div class="search-box">
-	<form method="POST" action="search" class="form-search">
-		 <%= csrf_token_field %>
-		<input type="text" name="q" />
-		<input type="submit" value="search" id="search-button" class="btn btn-primary"/>
-	</form>
+	<%- form_tag url(:job_offers, :search), :method => :post, :class => 'form-search' do %>
+    <%= csrf_token_field %>
+    <input type="text" name="q" />
+    <button type="submit" id="search-button" class="btn btn-primary">Search</button>
+	<% end %>
 </div>
 
 <table class="table table-bordered">

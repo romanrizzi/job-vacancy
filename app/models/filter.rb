@@ -5,13 +5,11 @@ class Filter
   end
 
   def call a_query
-    splitted_query = a_query.split('')
     field = 'title'
     index = a_query.index(field)
     if index.present?
       if a_query[index + field.size] == ':'
-        end_index = field.size + 2 + (a_query[index + field.size + 2 ... a_query.size].index(''))
-        value = a_query[index + field.size + 2 ... index + end_index]
+        value = a_query[index + field.size + 1 ... a_query.size]
         @object_to_filter.all(field.to_sym.like => "%#{value}%")
       end
     end

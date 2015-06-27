@@ -1,8 +1,5 @@
 Given(/^an offer with title "(.*?)" and description "(.*?)"$/) do |title, description|
-  visit '/job_offers/new'
-  fill_in('job_offer[title]', :with => title)
-  fill_in('job_offer[description]', :with => description)
-  click_button('Create')
+  JobOffer.create(title: title, description: description, expiration_date: Date.today, user: User.all.first)
 end
 
 Given(/^I fill in the search field with "(.*?)"$/) do |query|
@@ -10,7 +7,7 @@ Given(/^I fill in the search field with "(.*?)"$/) do |query|
 end
 
 Then(/^I should see offers containing "(.*?)" in their titles$/) do |title|
-  assert_on_table_row 1, title
+  assert_on_table_row 2, title
 end
 
 Then(/^I should see offers containing "(.*?)" in their descriptions$/) do |arg1|
