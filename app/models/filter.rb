@@ -5,7 +5,8 @@ class Filter
   end
 
   def call a_query
-    field = 'title'
+    split_query = a_query.split('')
+    field = a_query[0 .. a_query.index(split_query.detect { |char| char == ':' }) - 1]
     index = a_query.index(field)
     if index.present?
       if a_query[index + field.size] == ':'

@@ -1,5 +1,5 @@
 Given(/^an offer with title "(.*?)" and description "(.*?)"$/) do |title, description|
-  JobOffer.create(title: title, description: description, expiration_date: Date.today, user: User.all.first)
+  JobOffer.create(title: title, description: description, user: User.all.first)
 end
 
 Given(/^I fill in the search field with "(.*?)"$/) do |query|
