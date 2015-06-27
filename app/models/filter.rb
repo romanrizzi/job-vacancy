@@ -16,7 +16,7 @@ class JobVacancy::Filter
         value = query[index + field.size + 1 ... query.size]
         result.concat @object_to_filter.all(field.to_sym.like => "%#{value}%")
       end
-    }
+    }.uniq
   end
 end
 

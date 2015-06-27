@@ -13,13 +13,13 @@ describe JobVacancy::Filter do
     offer
   end
 
-  it 'should filter offers by their titles' do
+  it "should return offers which contains 'java' in their titles" do
     offers = filter.call 'title:java'
 
     expect(offers).to contain_exactly java_dev_offer
   end
 
-  it 'should filter offers by their description' do
+  it "should return offers which contains 'another' in their description" do
     offers = filter.call 'description:another'
 
     expect(offers).to contain_exactly offer
@@ -40,5 +40,11 @@ describe JobVacancy::Filter do
     offers = filter.call ' title:java'
 
     expect(offers).to eq [java_dev_offer]
+  end
+
+  it 'should return result without duplicates' do
+    offers = filter.call 'title:a & title:e'
+
+    expect(offers).to eq [java_dev_offer, offer]
   end
 end
