@@ -7,6 +7,7 @@ Feature: Making a custom search
     And an offer with title "testing" and description "qa oportunity"
     And I access the offers list page
 
+  @wip
   Scenario: searching job offers by title
     Given I fill in the search field with "title:offer"
     When I click "search"
