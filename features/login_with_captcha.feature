@@ -2,7 +2,7 @@ Feature: Login using a captcha
 
   Background:
     Given Im on the login page and I fill in email with “offerer@test.com” and password with “Passw0rd!”
-  @wip
+
   Scenario: Login submitting the captcha correctly
     Given I fill in the captcha textbox with the correct image
     When I click login

@@ -7,15 +7,18 @@ Given(/^Im on the login page and I fill in email with “offerer@test\.com” an
 end
 
 Given(/^I fill in the captcha textbox with the correct image$/) do
-  pending # express the regexp above with the code you wish you had
+
+  Rack::Recaptcha.test_mode! #set the captcha response, its give me true
 end
 
 When(/^I click login$/) do
-  pending # express the regexp above with the code you wish you had
+
+  click_button('Login')
+
 end
 
 Then(/^I should be logged in$/) do
-  pending # express the regexp above with the code you wish you had
+  page.should have_content('offerer@test.com')
 end
 
 Given(/^I fill in the captcha textbox with “(\d+)”$/) do |arg1|
