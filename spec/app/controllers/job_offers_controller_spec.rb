@@ -39,6 +39,14 @@ describe "JobOffersController" do
 			last_response.location.should == 'http://example.org/job_offers/my'
 		end
 
-	end
+  end
+
+  describe 'post :search' do
+    it 'should render an error when the query has no :' do
+      post '/job_offers/search', :q => 'title'
+
+      expect(last_response.body).to include "You must add ':' between the field you want to search by and its value, with no whitespaces in the middle."
+    end
+  end
 
 end
