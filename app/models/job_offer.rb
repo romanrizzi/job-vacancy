@@ -16,7 +16,7 @@ class JobOffer
 
   validates_presence_of :title, :message => 'Title is mandatory'
   validates_acceptance_of :expiration_date,
-  	:if => lambda { |t| t.expiration_date < Date.today },
+  	:if => lambda { |t| t.is_expired? },
   	:message => 'Date is already expired'
 
   self.raise_on_save_failure = true
@@ -68,7 +68,11 @@ class JobOffer
   end
 
   def republish
-    self.expiration_date = Date.today + 30 if self.expiration_date < Date.today
+    self.expiration_date = Date.today + 30 if self.is_expired?
+  end
+
+  def is_expired?
+    self.expiration_date < Date.today
   end
 
   def self.find_active_offers_to_be_applied_by(a_user=nil)

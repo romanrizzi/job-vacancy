@@ -36,12 +36,12 @@
     </td>
     <td>
       <%= link_to 'Edit', url_for(:job_offers, :edit, :offer_id => offer.id), :class => "btn btn-primary" %>
+
       <%= partial 'job_offers/action_button', locals: {method: :destroy, id: offer.id, action: :delete, name: 'Delete'} %>
 
-      <% if offer.expiration_date < Date.today %>
+      <% if offer.is_expired? %>
           <%= partial 'job_offers/action_button', locals: {method: :republish, id: offer.id, action: :put, name: 'Republish'} %>
       <% end %>
-
       <% if not offer.is_active %>
           <%= partial 'job_offers/action_button', locals: {method: :activate, id: offer.id, action: :put, name: 'Activate'} %>
       <% end %>
