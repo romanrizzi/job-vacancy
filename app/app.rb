@@ -6,6 +6,8 @@ module JobVacancy
     register Padrino::Sprockets
     #register Padrino::Admin::AccessControl
     sprockets :minify => (Padrino.env == :production)
+    use Rack::Recaptcha, :public_key => '6Lc09AgTAAAAAJ3f8lVcX8y2Cmh1hDJCEa21GcLh', :private_key => '6Lc09AgTAAAAAAF6DUsD_dQT0zOIM0jabHBl3h_H'
+    helpers Rack::Recaptcha::Helpers
 
     enable :sessions
 
