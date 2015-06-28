@@ -33,5 +33,5 @@ Then(/^I should see an error message related to the wrong captcha$/) do
 end
 
 Then(/^I should see a message that tells me captcha is mandatory$/) do
-  pending # express the regexp above with the code you wish you had
+  page.should have_content('Invalid captcha')
 end

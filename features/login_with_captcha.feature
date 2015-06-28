@@ -13,7 +13,6 @@ Feature: Login using a captcha
     When I click login
     Then I should see an error message related to the wrong captcha
 
-  @wip
   Scenario: I leave captcha input blank
     When I click login
     Then I should see a message that tells me captcha is mandatory
