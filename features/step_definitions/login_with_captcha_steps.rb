@@ -1,8 +1,8 @@
-Given(/^Im on the login page and I fill in email with “offerer@test\.com” and password with “Passw(\d+)rd!”$/) do |arg1|
+Given(/^Im on the login page and I fill in email with "(.*?)" and password with "(.*?)"$/) do |email, password|
 
   visit '/login'
-  fill_in('user[email]', :with => 'offerer@test.com')
-  fill_in('user[password]', :with => 'Passw0rd!')
+  fill_in('user[email]', :with => email)
+  fill_in('user[password]', :with => password)
 
 end
 
@@ -22,16 +22,12 @@ Then(/^I should be logged in$/) do
   page.should have_content('Logout')
 end
 
-Given(/^I fill in the captcha textbox with “(\d+)”$/) do |arg1|
+Given(/^I fill in the captcha textbox with invalid data$/) do
 
   Rack::Recaptcha.test_mode! :return => false
   #set the captcha response, its give me false
 end
 
 Then(/^I should see an error message related to the wrong captcha$/) do
-  page.should have_content('Invalid captcha')
-end
-
-Then(/^I should see a message that tells me captcha is mandatory$/) do
   page.should have_content('Invalid captcha')
 end
