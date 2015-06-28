@@ -122,6 +122,7 @@ JobVacancy::App.controllers :job_offers do
     @job_offer = JobOffer.get(params[:offer_id])
     @job_offer.republish
     @job_offer.save
+    flash[:success] = 'The offer has been republished'
     redirect 'job_offers/my'
   end
 end
