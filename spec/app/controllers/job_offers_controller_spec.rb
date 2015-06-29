@@ -59,10 +59,12 @@ describe "JobOffersController" do
     let(:c_offer) { JobOffer.create(title: 'C# Developer', user: another_user) }
 
     before :each do
+      JobOffer.all.destroy
       java_offer
       ruby_offer
       c_offer
     end
+
     it 'should only show neither deactivated nor expired offers' do
       ruby_offer.deactivate
       ruby_offer.save!
