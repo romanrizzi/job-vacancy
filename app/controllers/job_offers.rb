@@ -39,7 +39,9 @@ JobVacancy::App.controllers :job_offers do
   post :search do
     filter = JobVacancy::Filter.new JobOffer
     begin
-      @offers = filter.call params[:q]
+      @offers = filter.call(params[:q]).select { |offer|
+        offer.is_active? && !offer.is_expired? && offer.owner != current_user
+      }
       render 'job_offers/list'
     rescue InvalidQuery => e
       @offers = []

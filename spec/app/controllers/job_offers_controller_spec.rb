@@ -47,6 +47,46 @@ describe "JobOffersController" do
 
       expect(last_response.body).to include "You must add ':' between the field you want to search by and its value, with no whitespaces in the middle."
     end
+
+    let(:user) do
+      User.create(name: 'Test User', password: '123abc', email: 'test@user.com')
+    end
+    let(:another_user) do
+      User.create(name: 'Another User', password: '123abc', email: 'another@user.com')
+    end
+    let(:java_offer) { JobOffer.create(title: 'Java Developer', user: user, expiration_date: Date.today) }
+    let(:ruby_offer) { JobOffer.create(title: 'Ruby Developer', user: another_user) }
+    let(:c_offer) { JobOffer.create(title: 'C# Developer', user: another_user) }
+
+    before :each do
+      JobOffer.all.destroy
+      java_offer
+      ruby_offer
+      c_offer
+    end
+
+    it 'should only show neither deactivated nor expired offers' do
+      ruby_offer.deactivate
+      ruby_offer.save!
+
+      Timecop.freeze(Date.today + 7) do
+        post '/job_offers/search', :q => 'title:Developer'
+      end
+
+      expect(last_response.body.include? java_offer.title).to be_falsey
+      expect(last_response.body.include? ruby_offer.title).to be_falsey
+      expect(last_response.body.include? c_offer.title).to be_truthy
+    end
+
+    it "should only show offers which owner isn't the current user" do
+      JobVacancy::App.any_instance.stub(:current_user).and_return(user)
+
+      post '/job_offers/search', :q => 'title:Developer'
+
+      expect(last_response.body.include? java_offer.title).to be_falsey
+      expect(last_response.body.include? ruby_offer.title).to be_truthy
+      expect(last_response.body.include? c_offer.title).to be_truthy
+    end
   end
 
 end
