@@ -22,7 +22,7 @@ class JobVacancy::Filter
     field_index = original_query.index(query_characters.detect { |char| char != ' '})
     field_end_index = field_limit - 1
     field = original_query[field_index .. field_end_index].to_sym
-    raise InvalidQuery, "The field '#{field}' does not exists." unless @object_to_filter.properties.collect(&:name).include? field
+    raise InvalidQuery, "The field '#{field}' does not exist." unless @object_to_filter.properties.collect(&:name).include? field
     field
   end
 
