@@ -1,4 +1,3 @@
-@wip
 Feature: Register using a captcha
 
   Background:
