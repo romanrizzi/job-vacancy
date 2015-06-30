@@ -13,10 +13,6 @@ JobVacancy::App.controllers :sessions do
       @user = User.new
       flash.now[:error] = 'Invalid credentials'
       render 'sessions/new'
-    elsif (not recaptcha_valid?)
-      @user = User.new
-      flash.now[:error] = 'Invalid captcha'
-      render 'sessions/new'
     else
       sign_in @user
       redirect '/'
