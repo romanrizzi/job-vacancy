@@ -32,6 +32,7 @@ def register_new_user(a_name,an_email,a_password)
   fill_in('user[email]', :with => an_email)
   fill_in('user[password]', :with => a_password)
   fill_in('user[password_confirmation]', :with => a_password)
+  Rack::Recaptcha.test_mode!
   click_button('Create')
 end
 

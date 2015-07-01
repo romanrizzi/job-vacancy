@@ -7,8 +7,5 @@
     <br/>
     <%= link_to 'Forgot password?', url(:passwords, :new) %>
     <br/>
-    <br/>
-    <%= recaptcha_tag(:challenge).html_safe %>
-    <br/>
     <%= f.submit "Login", :id => 'loginButton', :class => "btn btn-primary" %>
 <% end %>

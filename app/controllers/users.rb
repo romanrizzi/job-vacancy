@@ -29,7 +29,10 @@ JobVacancy::App.controllers :users do
       params[:user].reject!{|k,v| k == 'password_confirmation'}
       if (params[:user][:password] == password_confirmation)
         @user = User.new(params[:user])
-        if @user.save
+        if (not recaptcha_valid?)
+          flash.now[:error] = 'Invalid captcha'
+          render 'users/new'
+        elsif @user.save
           flash[:success] = 'User created'
           redirect '/'
         else

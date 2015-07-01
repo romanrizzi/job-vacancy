@@ -3,10 +3,13 @@
 	<%= f.text_field :name %>
 	<%= f.label :email %>
  	<%= f.text_field :email %>
-  <%= f.label :password %>
-  <%= f.password_field :password %>
-  <%= f.label :password_confirmation %>
-  <%= f.password_field :password_confirmation %>
-  <br/>
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation %>
+    <br/>
+    <br/>
+    <%= recaptcha_tag(:challenge).html_safe %>
+    <br/>
   <%= f.submit "Create", :class => "btn btn-primary" %>
 <% end %>
